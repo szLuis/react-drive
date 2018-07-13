@@ -1,0 +1,3 @@
+<div id="page-options">
+    <input class="search form-control" placeholder="{this.props.trans.mainSearchPlaceholder}" onchange="{this.onSearchAction.bind(this)}"/>
+</div>

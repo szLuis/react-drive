@@ -1,0 +1,12 @@
+<rt-import name="default" as="WidgetCard" from="../../WidgetCard/WidgetCard"/>
+
+<WidgetCard showHeader={false} >
+	<div class="card card-no-items no-rows">
+        <div class="card-block">
+            <a rt-class="{ 'no-action': this.props.noAction }" href="{ this.props.url ? this.props.url : 'javascript:void(0);'}" onclick="{this.props.clickAction ? this.props.clickAction.bind(this) : null}" >
+                <img src={this.props.img} alt="">
+                <p>{this.props.msg}</p>
+            </a>
+        </div>
+    </div>
+</WidgetCard>

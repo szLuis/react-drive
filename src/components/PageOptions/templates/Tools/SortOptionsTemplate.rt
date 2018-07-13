@@ -1,0 +1,12 @@
+<div class="page-sorting-container">
+    <select class="form-control sorting-field" ref="sortby">
+    	<option rt-repeat="e,i in this.props.orderby" value="{e.attribute}" rt-props="{selected: e.attribute == this.props.sortingConfig.by}" >{e.translation}</option>
+    </select>
+
+    <button class="sortAsc sortingBtn btn btn-icon btn-info" rt-class="{active: this.props.sortingConfig.type == 'asc'}" data-toggle="tooltip" data-placement="top" title="{Translator.trans('coachy.sort.ascendant', {}, 'general')}" onclick='{this.sortItems.bind(this, "asc")}'>
+        <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+    </button>
+    <button class="sortDesc sortingBtn btn btn-icon btn-info" rt-class="{active: this.props.sortingConfig.type == 'desc'}" data-toggle="tooltip" data-placement="top" title="{Translator.trans('coachy.sort.descendant', {}, 'general') }"  onclick='{this.sortItems.bind(this,"desc")}'>
+        <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+    </button>
+</div>

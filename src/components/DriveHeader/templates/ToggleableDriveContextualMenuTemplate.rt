@@ -1,0 +1,34 @@
+<rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
+<!--<div>
+<button class="btn btn-icon btn-success edit_link" href="#" data-toggle="tooltip" data-placement="top" title="">
+    <FontAwesomeIcon icon="plus" />
+</button>
+<div class="dropdown-menu dropdown-menu-right" >
+    <h6 class="dropdown-header">Dropdown header</h6>
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+</div>
+</div>-->
+    <section class="card card-page-title">
+    <div class="card-block">
+        <div class="appbreadcrumb-container">
+            <div class="left-content content">
+            {this.state.isOpen}
+            </div>
+            <div class="right-content content">
+                <div class="dropdown dropdown-menu-right" onClick={this.toggleMenu}>
+                    <button class="btn btn-icon btn-success " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <FontAwesomeIcon style="position:inherit"  icon="plus" />
+                    </button>
+                    <div class="dropdown-menu" rt-if="this.state.isOpen" style="display: block"  aria-labelledby="dropdownMenuButton">
+                        <button type="button"  class="dropdown-item"  >Action</button>
+                        <a class="dropdown-item" href="#">Upload a file</a>
+                        <a class="dropdown-item" href="#">Create a folder</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>

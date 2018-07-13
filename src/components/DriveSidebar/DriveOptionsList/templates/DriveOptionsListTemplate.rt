@@ -1,0 +1,15 @@
+<rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
+<div >
+<li class="list-group-item">
+  <!--<FontAwesomeIcon icon="hdd" listItem/>       -->
+  Recents      
+</li>
+<li class="list-group-item">
+  <!--<FontAwesomeIcon icon="hdd"  pull="right"/>       -->
+  <label>Starred      </label>
+</li>
+<li class="list-group-item">
+  <!--<FontAwesomeIcon icon="hdd"  pull="right"/>       -->
+  Trash      
+</li>
+</div >

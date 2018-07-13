@@ -1,0 +1,7 @@
+<div class="switch-view-btn-group mt-3 mt-sm-0">
+    <div class="pull-right">
+        <button rt-repeat="view, i in this.props.availableViews" type="button" class="btn btn-icon btn-info" rt-class="{active: this.props.activeView === i}" onclick='{this.props.changeView.bind(this, i)}'>
+            {view.icon}
+        </button>
+    </div>
+</div>

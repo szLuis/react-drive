@@ -1,0 +1,14 @@
+<span class="d-none d-sm-none d-md-block main-buttons">
+
+    <a rt-if="this.props.showQuick" class="btn btn-icon btn-warning" onClick={this.onQuickAction.bind(this)} data-toggle="tooltip"  data-placement="bottom"  title={this.props.trans.quickElementTooltip}>
+        <i class="fa fa-bolt"></i>
+    </a>
+
+    <a rt-if="this.props.showBulk" class="btn btn-icon btn-warning" onClick={this.onBulkAction.bind(this)} data-toggle="tooltip"  data-placement="bottom"  title={this.props.trans.bulkElementsTooltip}>
+        <i class="fa fa-star"></i>
+    </a>
+
+    <a rt-if="this.props.showFull"  data-turbolinks = "{this.props.disableTurboLinks ? 'false' : 'true' }"  href={this.props.routes.fullAddUrl} class="btn btn-icon btn-success" data-toggle="tooltip" data-placement="bottom" title={this.props.trans.fullElementTooltip}>
+        <i class="fa fa-plus"></i>
+    </a>
+</span>

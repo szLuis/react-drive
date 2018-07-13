@@ -1,0 +1,24 @@
+<div class="container ">
+  <div class="row ">
+        <div class="col"></div>
+        <div class="col-md-6">
+            <form>
+            <div class="form-group">
+                <label for="folderName">Folder name </label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="folderName" 
+                    value={this.state.folderName}
+                    onChange={this.handleFolderNameChange} 
+                    aria-describedby="folderNameHelp" placeholder="e.g pictures"/>
+                <small id="folderNameHelp" class="form-text text-muted">Please add a name.</small>
+            </div>
+            <button class="btn btn-success" rt-if="this.props.folderName">Create</button>
+            <button class="btn btn-success" rt-if="this.props.folderName!=''">Update</button>
+            <button class="btn btn-primary mr-2">Cancel</button>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>

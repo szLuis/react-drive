@@ -1,0 +1,45 @@
+<rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
+<section class="card card-page-title">
+    <div class="card-block">
+        <div class="appbreadcrumb-container">
+            <div class="left-content content">
+
+                <img id="page-title-icon" src={this.props.imageURL}>
+              
+                <h1 id="page-title">          
+                    <small class="text-muted">
+                        {this.props.appName}
+                        <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    </small>
+                    
+                    {this.props.breadcrumb ? this.props.breadcrumb() : null}
+                    {this.props.mainButtons ? this.props.mainButtons() : null}
+                </h1>
+                
+            </div>
+                
+                
+                <div class="right-content content">
+                
+                <div class="input-group col-md-10">
+                    <input class="form-control py-2 border" type="search" value="search" id="search-input">
+                    <span class="input-group-append"><i class="fa fa-search"></i>
+                        
+                    </span>
+                </div>
+                <!--<div class="dropdown">
+                    <button class="btn btn-icon btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <FontAwesomeIcon icon="plus"/>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>-->
+                
+                
+                </div>
+            
+    </div>
+</section>

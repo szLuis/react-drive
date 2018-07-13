@@ -1,0 +1,86 @@
+<rt-import name="FolderForm" from="../../../DriveHeader/containers/FolderForm" />
+<rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
+<li class="list-group-item item-container" id={this.props.id}>
+	<div class="row" rt-if="this.state.editFormOpen===false">
+		<div class="avatar d-none d-md-block">
+			<div class="d-flex w-100 align-items-end">
+				<FontAwesomeIcon style="margin-left:15px;"  icon={this.props.icon} pull="right" />
+			</div>
+		</div>
+		<div class="list-body">
+			<!--<strong class="list-title">
+				{ this.props.title }
+			</strong>
+			<strong class="list-title">
+				{ this.props.title }
+			</strong>
+			<ul class="attributes-list">
+				{ this.props.title }
+			</ul>-->
+			<div class="d-flex w-100 justify-content-between">
+				<h6 class="mb-1 w-50">{ this.props.title }</h6>
+				<small class="w-20 text-muted">{ this.props.dateCreated }</small>
+				<div class="w-20 "><a href="#">{"info"}</a></div>
+				<div class=" w-20 list-actions">
+					<div class="d-none d-lg-block desktop-options">
+						<a 
+							class="btn btn-icon btn-info edit_link" 
+							data-toggle="tooltip" 
+							data-placement="top" 
+							title="{'trans.editElement'}"
+							onClick={this.handleEditClick} >
+							<FontAwesomeIcon style="position: inherit"  icon="edit" />
+						</a>
+						<a 
+							class="btn btn-icon btn-danger delete-btn" 
+							data-toggle="tooltip" 
+							id={this.props.id}
+							data-placement="top" 
+							title="{'trans.deleteElement'}" 
+							onClick={this.handleDeleteClick} >
+							<FontAwesomeIcon style="position: inherit"  icon="trash" />
+						</a>
+						<!--
+						<a class="btn btn-icon btn-info show_link" href="{this.props.showLink}" data-toggle="tooltip" data-placement="top" title="{'trans.viewElement'}">
+							<i class="fa fa-eye" aria-hidden="true"></i>
+						</a>
+						
+						-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--
+		<div class="list-actions">
+			
+			<div class="d-none d-lg-block desktop-options">
+				<a class="btn btn-icon btn-info edit_link" href="#" data-toggle="tooltip" data-placement="top" title="{'trans.editElement'}">
+					<i class="fa fa-pencil" aria-hidden="true"></i>
+				</a>
+				<a class="btn btn-icon btn-info show_link" href="{this.props.showLink}" data-toggle="tooltip" data-placement="top" title="{'trans.viewElement'}">
+					<i class="fa fa-eye" aria-hidden="true"></i>
+				</a>
+				<a class="btn btn-icon btn-danger delete-btn" href="#" data-toggle="tooltip" data-placement="top" title="{'trans.deleteElement'}" >
+					<i class="fa fa-trash-o" aria-hidden="true"></i>
+				</a>
+			</div>
+			
+			<div class="dropdown more d-block d-lg-none">
+				<a class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="fa fa-ellipsis-v"></span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+					<a class="dropdown-item show_link_m" href="{this.props.showLink}">{"trans.viewElement"}</a>
+					<a class="dropdown-item edit_link_m" href="{this.props.editLink}">{"trans.editElement"}</a>
+					<a class="dropdown-item delete-btn" href="#" >{"trans.deleteElement"}</a>
+				</div>
+			</div>
+		</div> -->
+	</div>
+	<div rt-if="this.state.editFormOpen">
+        <hr>
+        <div class="card-block">
+            <FolderForm id={this.props.id} folderName={this.props.title} onFormSubmit={this.handleFormSubmit} onFormClose={this.handleFormClose} />
+        </div>
+    </div>
+</li> 

@@ -1,0 +1,3 @@
+<div class="overview-toolset">
+	{this.props.options()}
+</div>
