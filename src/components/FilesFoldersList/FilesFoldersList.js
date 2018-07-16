@@ -28,7 +28,7 @@ class FilesFoldersList extends Component{
         if (totalListElements ===0){
             return (
                 <div className="col-md-9">
-                    <div class="p-3 mb-2 bg-white text-dark font-italic">No elements in the list</div>
+                    <div className="p-3 mb-2 bg-white text-dark font-italic">No elements in the list</div>
                 </div>
             )
         }

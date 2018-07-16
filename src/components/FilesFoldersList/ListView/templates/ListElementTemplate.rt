@@ -41,14 +41,13 @@
 							<FontAwesomeIcon style="position: inherit"  icon="trash" />
 						</a>
 						<a 
-							class="btn btn-icon btn-success " 
+							class="btn btn-icon btn-primary " 
 							data-toggle="tooltip" 
 							id={this.props.id}
 							data-placement="top" 
 							title="{'trans.deleteElement'}" 
 							onClick={this.handleStarClick} >
-							<FontAwesomeIcon rt-if="this.props.star" style="position: inherit; color: gold;"  icon="star"  />
-							<FontAwesomeIcon rt-if="this.props.star===false" style="position: inherit;"  icon="star"  />
+							<FontAwesomeIcon style="position: inherit; color:{this.props.star ? 'yellow' : 'white' } "  icon="star"  />
 						</a>
 						
 						<!--

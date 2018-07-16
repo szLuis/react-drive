@@ -13,7 +13,10 @@ class DriveSidebar extends Component{
             <div className="col-md-3">
                 <ul className="list list-group list-attrs" >
                     <DriveExplorer/>
-                    <DriveOptionsList/>
+                    <DriveOptionsList 
+                        onStarredOptionClick={this.props.onStarredOptionClick} 
+                        onRecentsOptionClick={this.props.onRecentsOptionClick} 
+                    />
                     <DriveStorageInfo/>
                 </ul>
             </div>

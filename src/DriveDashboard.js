@@ -6,12 +6,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/theme.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar} from '@fortawesome/free-solid-svg-icons';
+import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar, faClock } from '@fortawesome/free-solid-svg-icons';
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import DriveSidebar from './components/DriveSidebar/DriveSidebar';
 import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
 import FilesFoldersData from './data/filesfoldersdata';
-library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar );
+library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock );
 
 
 class DriveDashboard extends Component {
@@ -96,6 +96,30 @@ class DriveDashboard extends Component {
       })
     })
   }
+
+
+  handleStarredOptionClick = () => {
+    this.setState({
+      filesandfolders: this.state.filesandfolders.filter(ff => ff.star === true)
+      })
+  }
+
+  handleRecentsOptionClick = () => {
+    const d = new Date();
+      const mes = d.getMonth() + 1 ;
+      const dia = d.getDate() - 10;
+      const tenDaysBack = d.getFullYear() + '-' + mes + '-' + dia;
+      const daysBack = Date.parse(tenDaysBack);
+    this.setState({   
+      filesandfolders: this.state.filesandfolders.filter(ff => Date.parse(ff.dateCreated) >= daysBack)
+      })
+  }
+
+  handleTrashOptionClick = () => {
+    this.setState({
+      filesandfolders: this.state.filesandfolders.filter(ff => ff.star === true)
+      })
+  }
   
 
   render() {
@@ -104,7 +128,10 @@ class DriveDashboard extends Component {
           <DriveHeader onFormSubmit={this.handleCreateFormSubmit} />
           {/* <Breadcrumbs appName="Drive" imageURL="assets/img/drive-icon.png"/> */}
           <div className="row">
-            <DriveSidebar/>
+            <DriveSidebar 
+              onStarredOptionClick={this.handleStarredOptionClick}
+              onRecentsOptionClick={this.handleRecentsOptionClick}
+            />
             <FilesFoldersList 
               onListElementStar={this.handleListElementStar} 
               onListElementDelete={this.handleListElementDelete} 

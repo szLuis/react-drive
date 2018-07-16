@@ -1,15 +1,21 @@
 <rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
 <div >
-<li class="list-group-item">
-  <!--<FontAwesomeIcon icon="hdd" listItem/>       -->
-  Recents      
-</li>
-<li class="list-group-item">
-  <!--<FontAwesomeIcon icon="hdd"  pull="right"/>       -->
-  <label>Starred      </label>
-</li>
-<li class="list-group-item">
-  <!--<FontAwesomeIcon icon="hdd"  pull="right"/>       -->
-  Trash      
-</li>
+  <a id="recents" href="javascript:void(0);" 
+      class="list-group-item list-group-item-action {this.state.optionActivated === 'recents' ? ' active' : '' }" 
+      onClick={this.handleRecentsClick}> 
+    <FontAwesomeIcon icon="clock" style="position: inherit;" />
+    Recents  
+  </a>
+  <a id="star" href="javascript:void(0);" 
+      class="list-group-item list-group-item-action {this.state.optionActivated === 'star' ? ' active' : '' } "  
+      onClick={this.handleStarClick}> 
+    <FontAwesomeIcon icon="star" style="position: inherit;" /> 
+    Starred 
+  </a>
+  <a id="trash" href="javascript:void(0);" 
+      class="list-group-item list-group-item-action {this.state.optionActivated === 'trash' ? ' active' : '' }" 
+      onClick={this.handleStarClick}> 
+    <FontAwesomeIcon icon="trash"  style="position: inherit;"  /> 
+    Trash 
+  </a>
 </div >
