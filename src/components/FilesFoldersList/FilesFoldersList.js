@@ -19,8 +19,10 @@ class FilesFoldersList extends Component{
                 title={filefolder.title}
                 dateCreated={filefolder.dateCreated}
                 details={filefolder.details}
+                star={filefolder.star}
                 onFormSubmit={this.props.onFormSubmit}
                 onListElementDelete={this.props.onListElementDelete}
+                onListElementStar={this.props.onListElementStar}
             />
         ));
         if (totalListElements ===0){

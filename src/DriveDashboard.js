@@ -6,12 +6,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/theme.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar} from '@fortawesome/free-solid-svg-icons';
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import DriveSidebar from './components/DriveSidebar/DriveSidebar';
 import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
 import FilesFoldersData from './data/filesfoldersdata';
-library.add(faHdd,faFile, faFolder, faPlus, faEdit,faTrash);
+library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar );
 
 
 class DriveDashboard extends Component {
@@ -68,8 +68,8 @@ class DriveDashboard extends Component {
   }
 
 
-  handleListElementDelete = (e) => {
-    this.deleteListElement(e);
+  handleListElementDelete = (itemId) => {
+    this.deleteListElement(itemId);
   }
 
   deleteListElement = (itemId) => {
@@ -78,6 +78,24 @@ class DriveDashboard extends Component {
     })
     // console.log('List element to delete id: ' + itemId);
   }
+
+  handleListElementStar = (itemId) => {
+    this.starListElement(itemId);
+  }
+
+  starListElement = (itemId) => {
+    this.setState({
+      filesandfolders: this.state.filesandfolders.map((filefolder) =>{
+        if (filefolder.id === itemId){
+          return Object.assign({}, filefolder, {
+            star: !filefolder.star,            
+          });
+        } else {
+          return filefolder;
+        }
+      })
+    })
+  }
   
 
   render() {
@@ -85,8 +103,15 @@ class DriveDashboard extends Component {
     return (<div className="container">
           <DriveHeader onFormSubmit={this.handleCreateFormSubmit} />
           {/* <Breadcrumbs appName="Drive" imageURL="assets/img/drive-icon.png"/> */}
-          <div className="row"><DriveSidebar/>
-          <FilesFoldersList onListElementDelete={this.handleListElementDelete} onFormSubmit={this.handleUpdateFormSubmit} filesandfolders={this.state.filesandfolders}/></div>
+          <div className="row">
+            <DriveSidebar/>
+            <FilesFoldersList 
+              onListElementStar={this.handleListElementStar} 
+              onListElementDelete={this.handleListElementDelete} 
+              onFormSubmit={this.handleUpdateFormSubmit} 
+              filesandfolders={this.state.filesandfolders}
+            />
+          </div>
       </div>
     );
   }

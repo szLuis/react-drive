@@ -14,9 +14,14 @@ class ListElement extends Component{
     handleEditClick = () => {        
         this.openForm();
     }
+    
     handleDeleteClick = () => {
         this.props.onListElementDelete(this.props.id);
         this.handleFormClose();
+    }
+
+    handleStarClick = () => {
+        this.props.onListElementStar(this.props.id);
     }
 
     handleFormClose = () => {

@@ -40,6 +40,17 @@
 							onClick={this.handleDeleteClick} >
 							<FontAwesomeIcon style="position: inherit"  icon="trash" />
 						</a>
+						<a 
+							class="btn btn-icon btn-success " 
+							data-toggle="tooltip" 
+							id={this.props.id}
+							data-placement="top" 
+							title="{'trans.deleteElement'}" 
+							onClick={this.handleStarClick} >
+							<FontAwesomeIcon rt-if="this.props.star" style="position: inherit; color: gold;"  icon="star"  />
+							<FontAwesomeIcon rt-if="this.props.star===false" style="position: inherit;"  icon="star"  />
+						</a>
+						
 						<!--
 						<a class="btn btn-icon btn-info show_link" href="{this.props.showLink}" data-toggle="tooltip" data-placement="top" title="{'trans.viewElement'}">
 							<i class="fa fa-eye" aria-hidden="true"></i>
