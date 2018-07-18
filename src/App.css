@@ -22,6 +22,12 @@
   font-size: large;
 }
 
+li.borderless, li.borderless:hover { 
+  border-top: 0 none; 
+  border-bottom: 0 none;
+  
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

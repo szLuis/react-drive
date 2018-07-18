@@ -16,6 +16,7 @@ class DriveSidebar extends Component{
                     <DriveOptionsList 
                         onStarredOptionClick={this.props.onStarredOptionClick} 
                         onRecentsOptionClick={this.props.onRecentsOptionClick} 
+                        onTrashOptionClick={this.props.onTrashOptionClick} 
                     />
                     <DriveStorageInfo/>
                 </ul>

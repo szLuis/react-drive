@@ -14,7 +14,7 @@
   </a>
   <a id="trash" href="javascript:void(0);" 
       class="list-group-item list-group-item-action {this.state.optionActivated === 'trash' ? ' active' : '' }" 
-      onClick={this.handleStarClick}> 
+      onClick={this.handleTrashClick}> 
     <FontAwesomeIcon icon="trash"  style="position: inherit;"  /> 
     Trash 
   </a>

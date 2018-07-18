@@ -1,13 +1,13 @@
 <rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
   <div >
-  <li class="list-group-item">
+  <li class="list-group-item borderless">
     <FontAwesomeIcon icon="hdd" style="position: inherit;" />    
      Storage      
   </li>
-  <li class="list-group-item">
+  <li class="list-group-item borderless">
     <div class="progress">
       <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
     </div>
   </li>
-  <h6 class="list-group-item">250 MB  used of 1000 MB available</h6>
+  <li class="list-group-item borderless">250 MB  used of 1000 MB available</li>
   </div>

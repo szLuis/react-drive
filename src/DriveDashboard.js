@@ -20,11 +20,17 @@ class DriveDashboard extends Component {
 
     this.state={
         filesandfolders:[],
+        optionClicked: 'drive',
     }
   }
 
+  
+
   componentDidMount(){
-      this.setState({filesandfolders: FilesFoldersData});
+      this.setState(
+        {
+          filesandfolders: FilesFoldersData,
+        });
   }
 
 
@@ -74,7 +80,16 @@ class DriveDashboard extends Component {
 
   deleteListElement = (itemId) => {
     this.setState({
-      filesandfolders: this.state.filesandfolders.filter(ff => ff.id !== itemId),
+      //filesandfolders: this.state.filesandfolders.filter(ff => ff.id !== itemId),
+      filesandfolders: this.state.filesandfolders.map((filefolder) =>{
+        if (filefolder.id === itemId){
+          return Object.assign({}, filefolder, {
+            deleted: true,            
+          });
+        } else {
+          return filefolder;
+        }
+      })
     })
     // console.log('List element to delete id: ' + itemId);
   }
@@ -87,8 +102,10 @@ class DriveDashboard extends Component {
     this.setState({
       filesandfolders: this.state.filesandfolders.map((filefolder) =>{
         if (filefolder.id === itemId){
+          console.log(itemId);
           return Object.assign({}, filefolder, {
-            star: !filefolder.star,            
+            star: !filefolder.star,        
+            deleted: false,    
           });
         } else {
           return filefolder;
@@ -100,25 +117,20 @@ class DriveDashboard extends Component {
 
   handleStarredOptionClick = () => {
     this.setState({
-      filesandfolders: this.state.filesandfolders.filter(ff => ff.star === true)
-      })
+      optionClicked: 'starred',
+    })
   }
 
   handleRecentsOptionClick = () => {
-    const d = new Date();
-      const mes = d.getMonth() + 1 ;
-      const dia = d.getDate() - 10;
-      const tenDaysBack = d.getFullYear() + '-' + mes + '-' + dia;
-      const daysBack = Date.parse(tenDaysBack);
     this.setState({   
-      filesandfolders: this.state.filesandfolders.filter(ff => Date.parse(ff.dateCreated) >= daysBack)
-      })
+      optionClicked: 'recents',
+    })
   }
 
   handleTrashOptionClick = () => {
     this.setState({
-      filesandfolders: this.state.filesandfolders.filter(ff => ff.star === true)
-      })
+      optionClicked: 'trash',
+    })
   }
   
 
@@ -131,8 +143,10 @@ class DriveDashboard extends Component {
             <DriveSidebar 
               onStarredOptionClick={this.handleStarredOptionClick}
               onRecentsOptionClick={this.handleRecentsOptionClick}
+              onTrashOptionClick={this.handleTrashOptionClick}
             />
             <FilesFoldersList 
+              optionClicked={this.state.optionClicked}
               onListElementStar={this.handleListElementStar} 
               onListElementDelete={this.handleListElementDelete} 
               onFormSubmit={this.handleUpdateFormSubmit} 

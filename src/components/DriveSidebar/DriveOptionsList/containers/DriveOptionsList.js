@@ -21,6 +21,11 @@ class DriveOptionsList extends Component{
         this.activeOption(e);        
     }
 
+    handleTrashClick = (e) => {
+        this.props.onTrashOptionClick();
+        this.activeOption(e);        
+    }
+
     activeOption = (e) => {
         this.setState({
             optionActivated : e.target.id,

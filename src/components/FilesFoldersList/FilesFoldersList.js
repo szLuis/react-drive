@@ -11,7 +11,23 @@ class FilesFoldersList extends Component{
 
     render(){
         const totalListElements = this.props.filesandfolders.length;
-        const listElementComponents = this.props.filesandfolders.map((filefolder) => (
+        let filesandfoldersfiltered = this.props.filesandfolders; //no filter applied
+        
+        if (this.props.optionClicked === 'starred')
+            filesandfoldersfiltered = this.props.filesandfolders.filter(ff => ff.star === true && ff.deleted===false);
+        else if (this.props.optionClicked === 'recents'){
+            const d = new Date();
+            const mes = d.getMonth() + 1 ;
+            const dia = d.getDate() - 10;
+            const tenDaysBack = d.getFullYear() + '-' + mes + '-' + dia;
+            const daysBack = Date.parse(tenDaysBack);
+            filesandfoldersfiltered= this.props.filesandfolders.filter(ff => Date.parse(ff.dateCreated) >= daysBack && ff.deleted===false);
+        }else if (this.props.optionClicked === 'trash'){
+            filesandfoldersfiltered = this.props.filesandfolders.filter(ff => ff.deleted === true );
+        }
+            
+        
+        const listElementComponents = filesandfoldersfiltered.map((filefolder) => (
             <ListElement 
                 key={filefolder.id}
                 id={filefolder.id}
