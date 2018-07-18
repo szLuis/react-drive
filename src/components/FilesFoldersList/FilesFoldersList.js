@@ -11,7 +11,7 @@ class FilesFoldersList extends Component{
 
     render(){
         const totalListElements = this.props.filesandfolders.length;
-        let filesandfoldersfiltered = this.props.filesandfolders; //no filter applied
+        let filesandfoldersfiltered = this.props.filesandfolders.filter(ff => ff.deleted === false ); //no filter applied
         
         if (this.props.optionClicked === 'starred')
             filesandfoldersfiltered = this.props.filesandfolders.filter(ff => ff.star === true && ff.deleted===false);
@@ -41,21 +41,29 @@ class FilesFoldersList extends Component{
                 onListElementStar={this.props.onListElementStar}
             />
         ));
-        if (totalListElements ===0){
+     
+
+        if (this.props.loading){
+            return (
+                <div className="col-md-9">
+                    <div className="p-3 mb-2 bg-white text-dark font-italic">Loading...</div>
+                </div>
+            )
+        }else if (totalListElements ===0){
             return (
                 <div className="col-md-9">
                     <div className="p-3 mb-2 bg-white text-dark font-italic">No elements in the list</div>
                 </div>
             )
+        }else{
+            return (
+                <div className="col-md-9">
+                    <ul className="list list-group list-attrs">
+                        {listElementComponents}
+                    </ul>
+                </div>
+            )
         }
-
-        return (
-            <div className="col-md-9">
-                <ul className="list list-group list-attrs">
-                    {listElementComponents}
-                </ul>
-            </div>
-        )
     }
 }
 

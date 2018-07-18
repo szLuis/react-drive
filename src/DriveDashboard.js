@@ -11,8 +11,10 @@ import DriveHeader from './components/DriveHeader/DriveHeader';
 import DriveSidebar from './components/DriveSidebar/DriveSidebar';
 import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
 import FilesFoldersData from './data/filesfoldersdata';
+import axios from 'axios';
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock );
 
+const API ="http://localhost:3001/filesfolders";
 
 class DriveDashboard extends Component {
   constructor(props){
@@ -21,16 +23,27 @@ class DriveDashboard extends Component {
     this.state={
         filesandfolders:[],
         optionClicked: 'drive',
+        loading: true,
     }
   }
 
-  
+
 
   componentDidMount(){
-      this.setState(
-        {
-          filesandfolders: FilesFoldersData,
-        });
+    axios.get(API)
+    .then( (response) => this.setState(
+      {
+        filesandfolders: response.data,
+        loading:false,
+      })
+    )
+    .catch( (error) => {
+      this.setState({
+        loading:true,
+      })
+      console.log(error);
+    })
+      
   }
 
 
@@ -39,17 +52,32 @@ class DriveDashboard extends Component {
   };
 
   createFolderForm = (FolderForm) => {
-    console.log(FolderForm);
+    // console.log(FolderForm);
     const ff = FolderForm;
-    ff.id = "7";
+    ff.id = "9";
     ff.icon = 'folder';
     ff.title = FolderForm.folderName;
-    ff.dateCreated= '2018-05-20';
-    ff.detailsLink='';
-    console.log(FolderForm);
-    this.setState({
-      filesandfolders: this.state.filesandfolders.concat(ff),
-    });
+    ff.dateCreated= "2018-07-18";
+    ff.detailsLink='#';
+    // console.log(FolderForm);
+    axios.post(API, {
+        id: ff.id,
+        icon: ff.icon,
+        title: ff.title,
+        dateCreated: ff.dateCreated,
+        detailsLink: '#',
+        star: false,
+        deleted: false,
+    })
+    .then((response) => {
+      console.log(response.data);
+      this.setState({      
+        filesandfolders: this.state.filesandfolders.concat(ff),
+      })
+    })
+    .catch(function (error){
+      console.log(error);
+    })
   };
 
 
@@ -79,19 +107,26 @@ class DriveDashboard extends Component {
   }
 
   deleteListElement = (itemId) => {
-    this.setState({
-      //filesandfolders: this.state.filesandfolders.filter(ff => ff.id !== itemId),
-      filesandfolders: this.state.filesandfolders.map((filefolder) =>{
-        if (filefolder.id === itemId){
-          return Object.assign({}, filefolder, {
-            deleted: true,            
-          });
-        } else {
-          return filefolder;
-        }
+    axios.patch(API + '/' + itemId, {
+      deleted:true
+    })
+    .then( (response) => {
+      console.log(response);
+      this.setState({
+        filesandfolders: this.state.filesandfolders.map((filefolder) =>{
+          if (filefolder.id === itemId){
+            return Object.assign({}, filefolder, {
+              deleted: true,            
+            });
+          } else {
+            return filefolder;
+          }
+        })
       })
     })
-    // console.log('List element to delete id: ' + itemId);
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   handleListElementStar = (itemId) => {
@@ -99,19 +134,29 @@ class DriveDashboard extends Component {
   }
 
   starListElement = (itemId) => {
-    this.setState({
-      filesandfolders: this.state.filesandfolders.map((filefolder) =>{
-        if (filefolder.id === itemId){
-          console.log(itemId);
-          return Object.assign({}, filefolder, {
-            star: !filefolder.star,        
-            deleted: false,    
-          });
-        } else {
-          return filefolder;
-        }
+    axios.patch(API + '/' + itemId,{
+      star: true,
+    })
+    .then( (response) => {
+      console.log(response);
+      this.setState({
+        filesandfolders: this.state.filesandfolders.map((filefolder) =>{
+          if (filefolder.id === itemId){
+            console.log(itemId);
+            return Object.assign({}, filefolder, {
+              star: !filefolder.star,        
+              deleted: false,    
+            });
+          } else {
+            return filefolder;
+          }
+        })
       })
     })
+    .catch((error) => {
+      console.log(error);
+    })
+    
   }
 
 
@@ -151,6 +196,7 @@ class DriveDashboard extends Component {
               onListElementDelete={this.handleListElementDelete} 
               onFormSubmit={this.handleUpdateFormSubmit} 
               filesandfolders={this.state.filesandfolders}
+              loading={this.state.loading}
             />
           </div>
       </div>

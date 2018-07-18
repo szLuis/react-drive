@@ -60,8 +60,17 @@
       "title": "postman folder",
       "dateCreated": "2018-07-18",
       "detailsLink": "#",
-      "star": "false",
-      "deleted": "false"
+      "star": true,
+      "deleted": false
+    },
+    {
+      "id": "8",
+      "icon": "folder",
+      "title": "another postman folder",
+      "dateCreated": "2018-07-18",
+      "detailsLink": "#",
+      "star": false,
+      "deleted": true
     }
   ]
 }

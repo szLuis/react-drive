@@ -9,7 +9,7 @@
             </div>
             <div class="right-content content">
                 <button class="btn btn-icon btn-success " type="button" onClick={this.toggleForm}>
-                    <FontAwesomeIcon style="position:inherit" icon="plus" />
+                    <FontAwesomeIcon style="position:inherit" icon="folder" />
                 </button>                
             </div>
         </div>
