@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 // import FolderFormTemplate from '../templates/FolderFormTemplate.rt';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export class FolderForm extends Component{
     constructor(props){

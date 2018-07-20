@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import DriveOptionsListTemplate from '../templates/DriveOptionsListTemplate.rt'
 
 class DriveOptionsList extends Component{

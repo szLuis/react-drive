@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ToggleableFormTemplate from '../templates/ToggleableForm.rt';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FolderForm } from './FolderForm';
+import onClickOutside from 'react-onclickoutside';
 
 class ToggleableForm extends Component{
     constructor(props){
@@ -29,9 +28,15 @@ class ToggleableForm extends Component{
         this.setState({ isOpen:false});
     }
 
+    handleClickOutside(){
+        this.setState({
+            isOpen: false,
+        })
+    }
+
     render(){
         return ToggleableFormTemplate.apply(this);
     }
 }
 
-export default ToggleableForm;
+export default onClickOutside(ToggleableForm);

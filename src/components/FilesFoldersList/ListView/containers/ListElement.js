@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ListElementTemplate from '../templates/ListElementTemplate.rt';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class ListElement extends Component{
     constructor(props){

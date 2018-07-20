@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-// import DriveHeader from './components/DriveHeader'
-//import Breadcrumbs from './components/Breadcrumbs/containers/Breadcrumbs'
-
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/theme.css';
@@ -10,11 +7,11 @@ import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar, faClock } fro
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import DriveSidebar from './components/DriveSidebar/DriveSidebar';
 import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
-import FilesFoldersData from './data/filesfoldersdata';
+// import FilesFoldersData from './data/filesfoldersdata';
 import axios from 'axios';
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock );
 
-const API ="http://localhost:3001/filesfolders";
+const API ="https://drive-js-server.herokuapp.com/filesfolders/";
 
 class DriveDashboard extends Component {
   constructor(props){
@@ -54,11 +51,13 @@ class DriveDashboard extends Component {
   createFolderForm = (FolderForm) => {
     // console.log(FolderForm);
     const ff = FolderForm;
-    ff.id = "9";
+    ff.id = this.state.filesandfolders.length + 1;
     ff.icon = 'folder';
     ff.title = FolderForm.folderName;
     ff.dateCreated= "2018-07-18";
     ff.detailsLink='#';
+    ff.star=false;
+    ff.deleted=false;
     // console.log(FolderForm);
     axios.post(API, {
         id: ff.id,
@@ -74,6 +73,7 @@ class DriveDashboard extends Component {
       this.setState({      
         filesandfolders: this.state.filesandfolders.concat(ff),
       })
+      console.log(this.state.filesandfolders);
     })
     .catch(function (error){
       console.log(error);

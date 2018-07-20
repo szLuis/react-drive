@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ToggleableDriveContextualMenu from './containers/ToggleableDriveContextualMenu';
+// import ToggleableDriveContextualMenu from './containers/ToggleableDriveContextualMenu';
 import ToggleableForm from './containers/ToggleableForm';
-import FolderForm from './containers/FolderForm';
+import FileUploadForm from './containers/FileUploadForm';
 
 class DriveHeader extends Component{
     constructor(props){
@@ -11,8 +11,9 @@ class DriveHeader extends Component{
     }
     render(){
         return(<div>
-            <ToggleableDriveContextualMenu isOpen="true"/>
+            {/* <ToggleableDriveContextualMenu isOpen="true"/> */}
             <ToggleableForm onFormSubmit={this.props.onFormSubmit} />
+            {/* <FileUploadForm /> */}
             </div>
         )
     }

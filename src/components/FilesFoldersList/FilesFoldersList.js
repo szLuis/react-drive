@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ListElement from './ListView/containers/ListElement';
-import FolderForm from '../DriveHeader/containers/FolderForm';
 
 
 
