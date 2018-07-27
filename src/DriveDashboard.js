@@ -3,15 +3,16 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/theme.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar, faClock, faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import DriveSidebar from './components/DriveSidebar/DriveSidebar';
 import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
 // import FilesFoldersData from './data/filesfoldersdata';
 import axios from 'axios';
-library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock );
+library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight );
 
-const API ="https://drive-js-server.herokuapp.com/filesfolders/";
+//const API ="https://drive-js-server.herokuapp.com/filesfolders/";
+const API ="http://localhost:3001/filesfolders";
 
 class DriveDashboard extends Component {
   constructor(props){
@@ -189,6 +190,7 @@ class DriveDashboard extends Component {
               onStarredOptionClick={this.handleStarredOptionClick}
               onRecentsOptionClick={this.handleRecentsOptionClick}
               onTrashOptionClick={this.handleTrashOptionClick}
+              filesandfolders={this.state.filesandfolders}
             />
             <FilesFoldersList 
               optionClicked={this.state.optionClicked}

@@ -7,7 +7,9 @@
       "dateCreated": "2018-07-15",
       "detailsLink": "#",
       "star": true,
-      "deleted": false
+      "deleted": false,
+      "hasChildren": false,
+      "children":[]
     },
     {
       "id": "2",
@@ -16,7 +18,9 @@
       "dateCreated": "2018-05-18",
       "detailsLink": "#",
       "star": true,
-      "deleted": false
+      "deleted": false,
+      "hasChildren": false,
+      "children":[]
     },
     {
       "id": "3",
@@ -25,7 +29,9 @@
       "dateCreated": "2018-06-13",
       "detailsLink": "#",
       "star": true,
-      "deleted": false
+      "deleted": false,
+      "hasChildren": false,
+      "children":[]
     },
     {
       "id": "4",
@@ -34,7 +40,9 @@
       "dateCreated": "2018-06-23",
       "detailsLink": "#",
       "star": false,
-      "deleted": false
+      "deleted": false,
+      "hasChildren": false,
+      "children":[]
     },
     {
       "id": "5",
@@ -43,7 +51,9 @@
       "dateCreated": "2018-07-12",
       "detailsLink": "",
       "star": false,
-      "deleted": false
+      "deleted": false,
+      "hasChildren": false,
+      "children":[]
     },
     {
       "id": "6",
@@ -52,7 +62,9 @@
       "dateCreated": "2018-06-09",
       "detailsLink": "#",
       "star": true,
-      "deleted": false
+      "deleted": false,
+      "hasChildren": false,
+      "children":[]
     },
     {
       "id": "7",
@@ -61,7 +73,9 @@
       "dateCreated": "2018-07-18",
       "detailsLink": "#",
       "star": true,
-      "deleted": false
+      "deleted": false,
+      "hasChildren": false,
+      "children":[]
     },
     {
       "id": "8",
@@ -70,7 +84,44 @@
       "dateCreated": "2018-07-18",
       "detailsLink": "#",
       "star": false,
-      "deleted": true
+      "deleted": true,
+      "hasChildren": true,
+      "children":[
+        {
+          "id": "9",
+          "icon": "folder",
+          "title": "this folder is under a folder",
+          "dateCreated": "2018-07-12",
+          "detailsLink": "",
+          "star": false,
+          "deleted": false,
+          "hasChildren": false,
+          "children":[]
+        },
+        {
+          "id": "10",
+          "icon": "file",
+          "title": "greatest file ever",
+          "dateCreated": "2018-06-09",
+          "detailsLink": "#",
+          "star": true,
+          "deleted": false,
+          "hasChildren": false,
+          "children":[]
+        },
+        {
+          "id": "11",
+          "icon": "folder",
+          "title": "postman folder",
+          "dateCreated": "2018-07-18",
+          "detailsLink": "#",
+          "star": true,
+          "deleted": false,
+          "hasChildren": false,
+          "children":[]
+        }
+      ]
+
     }
   ]
 }

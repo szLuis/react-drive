@@ -4,7 +4,7 @@
 	<div class="row" rt-if="this.state.editFormOpen===false">
 		<div class="avatar d-none d-md-block">
 			<div class="d-flex w-100 align-items-end">
-				<FontAwesomeIcon style="margin-left:15px;"  icon={this.props.icon} pull="right" />
+				<FontAwesomeIcon style="position: inherit"   icon={this.props.icon} pull="right" />
 			</div>
 		</div>
 		<div class="list-body">

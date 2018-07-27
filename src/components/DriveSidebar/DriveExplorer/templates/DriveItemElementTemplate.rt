@@ -1,0 +1,35 @@
+<rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
+
+
+    <li class="list-group-item borderless " id={this.props.id} onClick={this.handleItemClick}>
+
+    <FontAwesomeIcon style="position: inherit" icon="{this.state.isOpen === true ? 'caret-down' : 'caret-right' }" /> {this.props.title}
+    <ul class="list-group {this.state.isOpen ? '' : 'hidden' }">
+        {this.props.children}
+    </ul>
+     <!--<ul class="list-group {this.state.isOpen ? ' hidden' : '' }">
+        <li class="list-group-item borderless"  id="1">One</li>
+        <li class="list-group-item borderless" id="2">Two</li>
+        <li class="list-group-item borderless" id="3">Three</li>
+        <li class="list-group-item borderless" id="4">
+            <FontAwesomeIcon style="position: inherit" icon="caret-right" /> Four
+            <ul class="list-group {this.state.isOpen ? ' hidden' : '' }">
+                <li class="list-group-item borderless" id="41">One</li>
+                <li class="list-group-item borderless" id="42">Two</li>
+                <li class="list-group-item borderless" id="43">Three</li>
+            </ul>
+        </li>
+        <li class="list-group-item borderless" id="5">
+            <FontAwesomeIcon style="position: inherit" icon="caret-down" /> Five
+            <ul class="list-group {this.state.isOpen ? ' hidden' : '' }">
+                <li class="list-group-item borderless" id="51">One</li>
+                <li class="list-group-item borderless" id="52">Two</li>
+                <li class="list-group-item borderless" id="53">Three</li>
+            </ul>
+        </li>
+        
+    </ul>
+    </li>
+</ul>
+
+{this.state.optionActivated === 'trash' ? ' hidden' : '' }-->
