@@ -44,13 +44,12 @@ class DriveDashboard extends Component {
       
   }
 
-
+  // CREATE folder block
   handleCreateFormSubmit = (FolderForm) => {
     this.createFolderForm(FolderForm);
   };
 
   createFolderForm = (FolderForm) => {
-    // console.log(FolderForm);
     const ff = FolderForm;
     ff.id = this.state.filesandfolders.length + 1;
     ff.icon = 'folder';
@@ -59,7 +58,7 @@ class DriveDashboard extends Component {
     ff.detailsLink='#';
     ff.star=false;
     ff.deleted=false;
-    // console.log(FolderForm);
+    // console.log(FolderForm;
     axios.post(API, {
         id: ff.id,
         icon: ff.icon,
@@ -70,39 +69,44 @@ class DriveDashboard extends Component {
         deleted: false,
     })
     .then((response) => {
-      console.log(response.data);
       this.setState({      
         filesandfolders: this.state.filesandfolders.concat(ff),
       })
-      console.log(this.state.filesandfolders);
     })
     .catch(function (error){
       console.log(error);
     })
   };
 
-
+  // UPDATE folder block
   handleUpdateFormSubmit = (FolderFormAtts) => {
     this.updateFolderForm(FolderFormAtts);
   }
 
   updateFolderForm = (FolderFormAtts) => {
-    console.log(FolderFormAtts)  ;
-    this.setState({
-      filesandfolders: this.state.filesandfolders.map((filefolder) =>{
-        if (filefolder.id === FolderFormAtts.id){
-          return Object.assign({}, filefolder, {
-            title: FolderFormAtts.folderName,            
-          });
-        } else {
-          console.log(filefolder);
-          return filefolder;
-        }
-      })
-    });
+    axios.patch(API + '/' + FolderFormAtts.id, {
+      title:FolderFormAtts.folderName
+    })
+    .then((response) => {
+      this.setState({
+        filesandfolders: this.state.filesandfolders.map((filefolder) =>{
+          if (filefolder.id === FolderFormAtts.id){
+            return Object.assign({}, filefolder, {
+              title: FolderFormAtts.folderName,            
+            });
+          } else {
+            return filefolder;
+          }
+        })
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+ 
   }
 
-
+  // DELETE element block
   handleListElementDelete = (itemId) => {
     this.deleteListElement(itemId);
   }
@@ -130,6 +134,7 @@ class DriveDashboard extends Component {
     })
   }
 
+  // STAR element block
   handleListElementStar = (itemId) => {
     this.starListElement(itemId);
   }
@@ -160,7 +165,7 @@ class DriveDashboard extends Component {
     
   }
 
-
+  // CLICK event handlers for drive side bar
   handleStarredOptionClick = () => {
     this.setState({
       optionClicked: 'starred',
