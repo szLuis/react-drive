@@ -3,19 +3,19 @@
   <a id="recents" href="javascript:void(0);" 
       class="list-group-item list-group-item-action {this.state.optionActivated === 'recents' ? ' active' : '' }" 
       onClick={this.handleRecentsClick}> 
-    <FontAwesomeIcon icon="clock" style="position: inherit;" />
+    <FontAwesomeIcon icon="clock" style="position: inherit; margin-left:5px " />
     Recents  
   </a>
   <a id="star" href="javascript:void(0);" 
       class="list-group-item list-group-item-action {this.state.optionActivated === 'star' ? ' active' : '' } "  
       onClick={this.handleStarClick}> 
-    <FontAwesomeIcon icon="star" style="position: inherit;" /> 
+    <FontAwesomeIcon icon="star" style="position: inherit; margin-left:5px" /> 
     Starred 
   </a>
   <a id="trash" href="javascript:void(0);" 
       class="list-group-item list-group-item-action {this.state.optionActivated === 'trash' ? ' active' : '' }" 
       onClick={this.handleTrashClick}> 
-    <FontAwesomeIcon icon="trash"  style="position: inherit;"  /> 
+    <FontAwesomeIcon icon="trash"  style="position: inherit; margin-left:5px"  /> 
     Trash 
   </a>
 </div >

@@ -3,52 +3,60 @@ import DriveItemElement from './DriveItemElement'
 
 class DriveExplorer extends Component{
     constructor(props){
-        super(props)
-        
-    }   
+        super(props)        
+       
+    }  
     
+    getChildrenElements = (items) => {
+        let result = [];
+        let resultChild = []
+        const elements = items.map((item) => {
+            //checking if item has children     
+            if (item.hasChildren){                
+                result = []
+                let childrenElementsFiltered = item.children.filter(ff => ff.icon === 'folder')
+                    childrenElementsFiltered.map((child) => {
+                        if (child.hasChildren){ 
+                            const childElementsFiltered = child.children.filter(ff => ff.icon === 'folder')
+                            resultChild = resultChild.concat (this.getChildrenElements(childElementsFiltered));
+                        } 
+                        result = result.concat (<DriveItemElement
+                                                    id={child.id}
+                                                    key={child.id}
+                                                    title={child.title}
+                                                    children={resultChild} />
+                                                )
+                                        
+                        resultChild =[]
+                    })
+                    
+            }else{
+                
+                return (<DriveItemElement
+                    id={item.id}
+                    key={item.id}
+                    title={item.title} />)
+                    
+            }            
+            
+            return(<DriveItemElement
+                id={item.id}
+                key={item.id}
+                title={item.title}
+                children={result} />)
+        })
+        return elements;
+    }
     
 
     render(){
         const itemElementsFiltered =  this.props.filesandfolders.filter(ff => ff.icon === 'folder')
-        const itemElements = itemElementsFiltered.map((item) => {
-       
-            
-            if (item.hasChildren){
-                const childrenElementsFiltered =  item.children.filter(ff => ff.icon === 'folder')
-                const childrenElements =childrenElementsFiltered.map((child) => {
-                    return <DriveItemElement
-                    id={child.id}
-                    key={child.id}
-                    title={child.title}
-                    
-                />
-                })
-
-                console.log(childrenElements)
-                return <DriveItemElement
-                    id={item.id}
-                    key={item.id}
-                    title={item.title}
-                    children={childrenElements}
-                    
-                />
-            }else{
-                console.log(item.title);
-                return <DriveItemElement
-                    id={item.id}
-                    key={item.id}
-                    title={item.title}                    
-                    />
-            }
-            
-        })
-        console.log(itemElements)
+        const itemElements = this.getChildrenElements(itemElementsFiltered);
         return (
-            <div> <li class="list-group-item borderless"  id="0">Drive<ul className="list-group ">
-                {itemElements}
-                </ul>
-                </li>
+            <div> 
+                <ul className="list-group">
+                    {itemElements}
+                </ul>                
             </div>            
         )
     }

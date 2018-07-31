@@ -11,8 +11,8 @@ import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
 import axios from 'axios';
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight );
 
-const API ="https://drive-js-server.herokuapp.com/filesfolders/";
-//const API ="http://localhost:3001/filesfolders";
+//const API ="https://drive-js-server.herokuapp.com/filesfolders/";
+const API ="http://localhost:3001/filesfolders";
 
 class DriveDashboard extends Component {
   constructor(props){

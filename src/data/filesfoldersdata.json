@@ -1,96 +1,64 @@
 {
-  "filesfolders": [
+  "filesfolders": 
+  [
     {
-      "id": "1",
-      "icon": "file",
-      "title": "this is a file",
-      "dateCreated": "2018-07-15",
-      "detailsLink": "#",
-      "star": true,
-      "deleted": false,
-      "hasChildren": false,
-      "children":[]
-    },
-    {
-      "id": "2",
-      "icon": "file",
-      "title": "this is another file",
-      "dateCreated": "2018-05-18",
-      "detailsLink": "#",
-      "star": true,
-      "deleted": false,
-      "hasChildren": false,
-      "children":[]
-    },
-    {
-      "id": "3",
+      "id": "0",
       "icon": "folder",
-      "title": "this is a folder",
-      "dateCreated": "2018-06-13",
-      "detailsLink": "#",
-      "star": true,
-      "deleted": false,
-      "hasChildren": false,
-      "children":[]
-    },
-    {
-      "id": "4",
-      "icon": "file",
-      "title": "this is a great file",
-      "dateCreated": "2018-06-23",
+      "title": "Drive",
+      "dateCreated": "2018-06-15",
       "detailsLink": "#",
       "star": false,
       "deleted": false,
-      "hasChildren": false,
-      "children":[]
-    },
-    {
-      "id": "5",
-      "icon": "folder",
-      "title": "this folder is great",
-      "dateCreated": "2018-07-12",
-      "detailsLink": "",
-      "star": false,
-      "deleted": false,
-      "hasChildren": false,
-      "children":[]
-    },
-    {
-      "id": "6",
-      "icon": "file",
-      "title": "greatest file ever",
-      "dateCreated": "2018-06-09",
-      "detailsLink": "#",
-      "star": true,
-      "deleted": false,
-      "hasChildren": false,
-      "children":[]
-    },
-    {
-      "id": "7",
-      "icon": "folder",
-      "title": "postman folder",
-      "dateCreated": "2018-07-18",
-      "detailsLink": "#",
-      "star": true,
-      "deleted": false,
-      "hasChildren": false,
-      "children":[]
-    },
-    {
-      "id": "8",
-      "icon": "folder",
-      "title": "another postman folder",
-      "dateCreated": "2018-07-18",
-      "detailsLink": "#",
-      "star": false,
-      "deleted": true,
       "hasChildren": true,
       "children":[
         {
-          "id": "9",
+        "id": "1",
+        "icon": "file",
+        "title": "this is a file",
+        "dateCreated": "2018-07-15",
+        "detailsLink": "#",
+        "star": true,
+        "deleted": false,
+        "hasChildren": false,
+        "children":[]
+        },
+        {
+          "id": "2",
+          "icon": "file",
+          "title": "this is another file",
+          "dateCreated": "2018-05-18",
+          "detailsLink": "#",
+          "star": true,
+          "deleted": false,
+          "hasChildren": false,
+          "children":[]
+        },
+        {
+          "id": "3",
           "icon": "folder",
-          "title": "this folder is under a folder",
+          "title": "this is a folder",
+          "dateCreated": "2018-06-13",
+          "detailsLink": "#",
+          "star": true,
+          "deleted": false,
+          "hasChildren": false,
+          "children":[]
+        },
+        {
+          "id": "4",
+          "icon": "file",
+          "title": "this is a great file",
+          "dateCreated": "2018-06-23",
+          "detailsLink": "#",
+          "star": false,
+          "deleted": false,
+          "hasChildren": false,
+          "children":[]
+        },
+        {
+          "id": "5",
+          "icon": "folder",
+          "title": "this folder is great",
           "dateCreated": "2018-07-12",
           "detailsLink": "",
           "star": false,
@@ -99,7 +67,7 @@
           "children":[]
         },
         {
-          "id": "10",
+          "id": "6",
           "icon": "file",
           "title": "greatest file ever",
           "dateCreated": "2018-06-09",
@@ -110,7 +78,7 @@
           "children":[]
         },
         {
-          "id": "11",
+          "id": "7",
           "icon": "folder",
           "title": "postman folder",
           "dateCreated": "2018-07-18",
@@ -119,9 +87,280 @@
           "deleted": false,
           "hasChildren": false,
           "children":[]
+        },
+        {
+          "id": "8",
+          "icon": "folder",
+          "title": "another postman folder",
+          "dateCreated": "2018-07-18",
+          "detailsLink": "#",
+          "star": false,
+          "deleted": true,
+          "hasChildren": true,
+          "children":[
+            {
+              "id": "9",
+              "icon": "folder",
+              "title": "Level 2 folder one",
+              "dateCreated": "2018-07-12",
+              "detailsLink": "",
+              "star": false,
+              "deleted": false,
+              "hasChildren": true,
+              "children":[
+                {
+                  "id": "12",
+                  "icon": "folder",
+                  "title": "Level 3 folder one",
+                  "dateCreated": "2018-07-12",
+                  "detailsLink": "",
+                  "star": false,
+                  "deleted": false,
+                  "hasChildren": false,
+                  "children":[]
+                },
+                {
+                  "id": "13",
+                  "icon": "folder",
+                  "title": "Level 3 folder two",
+                  "dateCreated": "2018-06-09",
+                  "detailsLink": "#",
+                  "star": true,
+                  "deleted": false,
+                  "hasChildren": false,
+                  "children":[]
+                },
+                {
+                  "id": "14",
+                  "icon": "folder",
+                  "title": "Level 3 folder three",
+                  "dateCreated": "2018-07-18",
+                  "detailsLink": "#",
+                  "star": true,
+                  "deleted": false,
+                  "hasChildren": false,
+                  "children":[]
+                }
+              ]
+            },
+            {
+              "id": "10",
+              "icon": "file",
+              "title": "greatest file ever",
+              "dateCreated": "2018-06-09",
+              "detailsLink": "#",
+              "star": true,
+              "deleted": false,
+              "hasChildren": false,
+              "children":[]
+            },
+            {
+              "id": "11",
+              "icon": "folder",
+              "title": "Level 2 folder two",
+              "dateCreated": "2018-07-18",
+              "detailsLink": "#",
+              "star": true,
+              "deleted": false,
+              "hasChildren": true,
+              "children":[
+                {
+                  "id": "15",
+                  "icon": "folder",
+                  "title": "Level 3 folder one",
+                  "dateCreated": "2018-07-12",
+                  "detailsLink": "",
+                  "star": false,
+                  "deleted": false,
+                  "hasChildren": false,
+                  "children":[]
+                },
+                {
+                  "id": "16",
+                  "icon": "folder",
+                  "title": "Level 3 folder two",
+                  "dateCreated": "2018-06-09",
+                  "detailsLink": "#",
+                  "star": true,
+                  "deleted": false,
+                  "hasChildren": true,
+                  "children":[
+                    {
+                      "id": "18",
+                      "icon": "folder",
+                      "title": "Level 4 folder one",
+                      "dateCreated": "2018-07-12",
+                      "detailsLink": "",
+                      "star": false,
+                      "deleted": false,
+                      "hasChildren": true,
+                      "children":[
+                        {
+                          "id": "27",
+                          "icon": "folder",
+                          "title": "Level 5 folder one",
+                          "dateCreated": "2018-07-12",
+                          "detailsLink": "",
+                          "star": false,
+                          "deleted": false,
+                          "hasChildren": true,
+                          "children":[
+                            {
+                              "id": "30",
+                              "icon": "folder",
+                              "title": "Level 6 folder one",
+                              "dateCreated": "2018-07-12",
+                              "detailsLink": "",
+                              "star": false,
+                              "deleted": false,
+                              "hasChildren": false,
+                              "children":[]
+                            },
+                            {
+                              "id": "31",
+                              "icon": "folder",
+                              "title": "Level 6 folder two",
+                              "dateCreated": "2018-06-09",
+                              "detailsLink": "#",
+                              "star": true,
+                              "deleted": false,
+                              "hasChildren": false,
+                              "children":[]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "28",
+                          "icon": "folder",
+                          "title": "Level 5 folder two",
+                          "dateCreated": "2018-06-09",
+                          "detailsLink": "#",
+                          "star": true,
+                          "deleted": false,
+                          "hasChildren": false,
+                          "children":[]
+                        },
+                        {
+                          "id": "29",
+                          "icon": "folder",
+                          "title": "Level 5 folder three",
+                          "dateCreated": "2018-07-18",
+                          "detailsLink": "#",
+                          "star": true,
+                          "deleted": false,
+                          "hasChildren": false,
+                          "children":[]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "19",
+                      "icon": "folder",
+                      "title": "Level 4 folder two",
+                      "dateCreated": "2018-06-09",
+                      "detailsLink": "#",
+                      "star": true,
+                      "deleted": false,
+                      "hasChildren": true,
+                      "children":[
+                        {
+                          "id": "21",
+                          "icon": "folder",
+                          "title": "Level 5 folder one",
+                          "dateCreated": "2018-07-12",
+                          "detailsLink": "",
+                          "star": false,
+                          "deleted": false,
+                          "hasChildren": false,
+                          "children":[]
+                        },
+                        {
+                          "id": "22",
+                          "icon": "folder",
+                          "title": "Level 5 folder two",
+                          "dateCreated": "2018-06-09",
+                          "detailsLink": "#",
+                          "star": true,
+                          "deleted": false,
+                          "hasChildren": false,
+                          "children":[]
+                        },
+                        {
+                          "id": "23",
+                          "icon": "folder",
+                          "title": "Level 5 folder three",
+                          "dateCreated": "2018-07-18",
+                          "detailsLink": "#",
+                          "star": true,
+                          "deleted": false,
+                          "hasChildren": false,
+                          "children":[]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "20",
+                      "icon": "folder",
+                      "title": "Level 4 folder three",
+                      "dateCreated": "2018-07-18",
+                      "detailsLink": "#",
+                      "star": true,
+                      "deleted": false,
+                      "hasChildren": true,
+                      "children":[
+                        {
+                          "id": "24",
+                          "icon": "folder",
+                          "title": "Level 5 folder one",
+                          "dateCreated": "2018-07-12",
+                          "detailsLink": "",
+                          "star": false,
+                          "deleted": false,
+                          "hasChildren": false,
+                          "children":[]
+                        },
+                        {
+                          "id": "25",
+                          "icon": "folder",
+                          "title": "Level 5 folder two",
+                          "dateCreated": "2018-06-09",
+                          "detailsLink": "#",
+                          "star": true,
+                          "deleted": false,
+                          "hasChildren": false,
+                          "children":[]
+                        },
+                        {
+                          "id": "26",
+                          "icon": "folder",
+                          "title": "Level 5 folder three",
+                          "dateCreated": "2018-07-18",
+                          "detailsLink": "#",
+                          "star": true,
+                          "deleted": false,
+                          "hasChildren": false,
+                          "children":[]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "17",
+                  "icon": "folder",
+                  "title": "Level 3 folder three",
+                  "dateCreated": "2018-07-18",
+                  "detailsLink": "#",
+                  "star": true,
+                  "deleted": false,
+                  "hasChildren": false,
+                  "children":[]
+                }
+              ]
+            }
+          ]
         }
       ]
-
     }
   ]
 }
