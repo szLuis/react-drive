@@ -22,6 +22,7 @@ class DriveDashboard extends Component {
         filesandfolders:[],
         optionClicked: 'drive',
         loading: true,
+        itemID:''
     }
   }
 
@@ -29,11 +30,12 @@ class DriveDashboard extends Component {
 
   componentDidMount(){
     axios.get(API)
-    .then( (response) => this.setState(
-      {
+    .then( (response) => {      
+      this.setState(
+      {        
         filesandfolders: response.data,
         loading:false,
-      })
+      })}
     )
     .catch( (error) => {
       this.setState({
@@ -183,6 +185,19 @@ class DriveDashboard extends Component {
       optionClicked: 'trash',
     })
   }
+
+  handleDriveExplorerItemClick = (itemID) => {
+    //const values = this.getObjects(this.state.filesandfolders, 'id', itemID)
+    //console.log(values[0].children)
+    this.setState({
+      optionClicked: 'folder',
+      itemID:itemID,
+    })
+    //if (typeof values == 'object') {
+    // this.setState({
+    //   filesandfolders:values[0].children
+    // })
+  }
   
 
   render() {
@@ -195,6 +210,7 @@ class DriveDashboard extends Component {
               onStarredOptionClick={this.handleStarredOptionClick}
               onRecentsOptionClick={this.handleRecentsOptionClick}
               onTrashOptionClick={this.handleTrashOptionClick}
+              onDriveExplorerItemClick={this.handleDriveExplorerItemClick}
               filesandfolders={this.state.filesandfolders}
             />
             <FilesFoldersList 
@@ -203,6 +219,7 @@ class DriveDashboard extends Component {
               onListElementDelete={this.handleListElementDelete} 
               onFormSubmit={this.handleUpdateFormSubmit} 
               filesandfolders={this.state.filesandfolders}
+              itemID={this.state.itemID}
               loading={this.state.loading}
             />
           </div>

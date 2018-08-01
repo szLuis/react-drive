@@ -13,7 +13,8 @@ class DriveSidebar extends Component{
             <div className="col-md-3">
                 <ul className="list list-group list-attrs" >
                     <DriveExplorer 
-                    filesandfolders={this.props.filesandfolders}
+                        onItemClick={this.props.onDriveExplorerItemClick}
+                        filesandfolders={this.props.filesandfolders}
                     />
                     <DriveOptionsList 
                         onStarredOptionClick={this.props.onStarredOptionClick} 

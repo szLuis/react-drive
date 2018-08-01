@@ -8,11 +8,34 @@ class FilesFoldersList extends Component{
         super(props);
     }
 
+    //return an array of objects according to key, value, or key and value matching
+    getObjects(obj, key, val) {
+        var objects = [];
+        for (var i in obj) {
+            if (!obj.hasOwnProperty(i)) continue;
+            if (typeof obj[i] === 'object') {
+                objects = objects.concat(this.getObjects(obj[i], key, val));    
+            } else 
+            //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
+            if (i === key && obj[i] === val || i === key && val === '') { //
+                objects.push(obj);
+            } else if (obj[i] === val && key === ''){
+                //only add if the object is not already in the array
+                if (objects.lastIndexOf(obj) === -1){
+                    objects.push(obj);
+                }
+            }
+        }
+        return objects;
+    }
+
     render(){
         const totalListElements = this.props.filesandfolders.length;
         let filesandfoldersfiltered = this.props.filesandfolders.filter(ff => ff.deleted === false ); //no filter applied
-        
-        if (this.props.optionClicked === 'starred')
+        if (this.props.optionClicked === 'folder'){
+            const values = this.getObjects(this.props.filesandfolders, 'id', this.props.itemID);    
+            filesandfoldersfiltered = values[0].children;
+        }else if (this.props.optionClicked === 'starred')
             filesandfoldersfiltered = this.props.filesandfolders.filter(ff => ff.star === true && ff.deleted===false);
         else if (this.props.optionClicked === 'recents'){
             const d = new Date();

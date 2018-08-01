@@ -24,8 +24,9 @@ class DriveExplorer extends Component{
                                                     id={child.id}
                                                     key={child.id}
                                                     title={child.title}
-                                                    children={resultChild} />
-                                                )
+                                                    children={resultChild} 
+                                                    onItemClick={this.props.onItemClick}
+                                                />)
                                         
                         resultChild =[]
                     })
@@ -33,17 +34,21 @@ class DriveExplorer extends Component{
             }else{
                 
                 return (<DriveItemElement
-                    id={item.id}
-                    key={item.id}
-                    title={item.title} />)
+                            id={item.id}
+                            key={item.id}
+                            title={item.title} 
+                            onItemClick={this.props.onItemClick}
+                        />)
                     
             }            
             
             return(<DriveItemElement
-                id={item.id}
-                key={item.id}
-                title={item.title}
-                children={result} />)
+                        id={item.id}
+                        key={item.id}
+                        title={item.title}
+                        children={result} 
+                        onItemClick={this.props.onItemClick}
+                    />)
         })
         return elements;
     }

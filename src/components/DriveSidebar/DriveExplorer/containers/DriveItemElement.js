@@ -7,11 +7,18 @@ class DriveItemElement extends Component{
         this.state = {
             isOpen:false,
         }
-        this.handleItemClick = this.handleItemClick.bind(this)
+        this.handleDriveExplorerItemClick = this.handleDriveExplorerItemClick.bind(this)
+        this.handleCaretClick = this.handleCaretClick.bind(this)
     }
     
-    handleItemClick = (e) => {
-        console.log('item clicked' + e.target.id)
+    handleDriveExplorerItemClick = (e) => {
+        console.log('DriveExplorer item clicked' + e.target.id)
+        
+        this.props.onItemClick(e.target.id)
+    }
+
+    handleCaretClick = (e) => {
+        console.log('caret clicked' + e.target.id)
         
         this.setState({
             isOpen:!this.state.isOpen,
