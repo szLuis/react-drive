@@ -7,12 +7,12 @@ import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar, faClock, faCa
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import DriveSidebar from './components/DriveSidebar/DriveSidebar';
 import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
-// import FilesFoldersData from './data/filesfoldersdata';
 import axios from 'axios';
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight );
 
 //const API ="https://drive-js-server.herokuapp.com/filesfolders/";
 const API ="http://localhost:3001/filesfolders";
+//const API ="http://192.168.43.208:3001/filesfolders";
 
 class DriveDashboard extends Component {
   constructor(props){
@@ -20,6 +20,7 @@ class DriveDashboard extends Component {
 
     this.state={
         filesandfolders:[],
+        newListElement:[],
         optionClicked: 'drive',
         loading: true,
         itemID:''
@@ -30,7 +31,11 @@ class DriveDashboard extends Component {
 
   componentDidMount(){
     axios.get(API)
-    .then( (response) => {      
+    .then( (response) => {     
+	console.log('files and folders keys')
+	const objfilefolder = response.data
+      console.log(Object.entries(objfilefolder)) 
+Object.entries(objfilefolder).forEach(([key, value]) => console.log(`${key}: ${value}`));
       this.setState(
       {        
         filesandfolders: response.data,
@@ -43,8 +48,29 @@ class DriveDashboard extends Component {
       })
       console.log(error);
     })
-      
+    
   }
+
+  //return an array of objects according to key, value, or key and value matching
+  getObjects(obj, key, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] === 'object') {
+            objects = objects.concat(this.getObjects(obj[i], key, val));    
+        } else 
+        //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
+        if (i === key && obj[i] === val || i === key && val === '') { //
+            objects.push(obj);
+        } else if (obj[i] === val && key === ''){
+            //only add if the object is not already in the array
+            if (objects.lastIndexOf(obj) === -1){
+                objects.push(obj);
+            }
+        }
+    }
+    return objects;
+}
 
   // CREATE folder block
   handleCreateFormSubmit = (FolderForm) => {
@@ -53,31 +79,43 @@ class DriveDashboard extends Component {
 
   createFolderForm = (FolderForm) => {
     const ff = FolderForm;
-    ff.id = this.state.filesandfolders.length + 1;
+    ff.id = this.state.filesandfolders.length + 31;
     ff.icon = 'folder';
     ff.title = FolderForm.folderName;
     ff.dateCreated= "2018-07-18";
     ff.detailsLink='#';
     ff.star=false;
     ff.deleted=false;
+    ff.hasChildren= false;
+    ff.children=[];
+
+    this.setState({      
+      newListElement: [ff],
+      //filesandfolders: this.state.filesandfolders.concat(ff),
+    })
+    this.handleDriveExplorerItemClick(this.state.itemID)
+    // const listOfElements = this.getObjects(this.state.filesandfolders, 'id', this.state.itemID);    
+    // const newListOfElements = listOfElements[0].children.concat(ff)
+
     // console.log(FolderForm;
-    axios.post(API, {
-        id: ff.id,
-        icon: ff.icon,
-        title: ff.title,
-        dateCreated: ff.dateCreated,
-        detailsLink: '#',
-        star: false,
-        deleted: false,
-    })
-    .then((response) => {
-      this.setState({      
-        filesandfolders: this.state.filesandfolders.concat(ff),
-      })
-    })
-    .catch(function (error){
-      console.log(error);
-    })
+    // axios.post(API, {
+    //     id: ff.id,
+    //     icon: ff.icon,
+    //     title: ff.title,
+    //     dateCreated: ff.dateCreated,
+    //     detailsLink: '#',
+    //     star: false,
+    //     deleted: false,
+    // })
+    // .then((response) => {
+    //   this.setState({      
+    //     newListElement: ff,
+    //     //filesandfolders: this.state.filesandfolders.concat(ff),
+    //   })
+    // })
+    // .catch(function (error){
+    //   console.log(error);
+    // })
   };
 
   // UPDATE folder block
@@ -221,6 +259,7 @@ class DriveDashboard extends Component {
               filesandfolders={this.state.filesandfolders}
               itemID={this.state.itemID}
               loading={this.state.loading}
+              newListElement={this.state.newListElement}
             />
           </div>
       </div>

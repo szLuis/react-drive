@@ -45,6 +45,7 @@
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.4.0",
     "react-onclickoutside": "^6.7.1",
+    "react-pose": "^2.2.0",
     "react-templates": "^0.6.3",
     "react-templates-loader": "^0.6.5",
     "resolve": "1.6.0",

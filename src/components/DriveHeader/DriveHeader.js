@@ -13,7 +13,7 @@ class DriveHeader extends Component{
         return(<div>
             {/* <ToggleableDriveContextualMenu isOpen="true"/> */}
             <ToggleableForm onFormSubmit={this.props.onFormSubmit} />
-            {/* <FileUploadForm /> */}
+            <FileUploadForm />
             </div>
         )
     }

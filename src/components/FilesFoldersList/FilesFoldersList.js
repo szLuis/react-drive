@@ -33,8 +33,24 @@ class FilesFoldersList extends Component{
         const totalListElements = this.props.filesandfolders.length;
         let filesandfoldersfiltered = this.props.filesandfolders.filter(ff => ff.deleted === false ); //no filter applied
         if (this.props.optionClicked === 'folder'){
-            const values = this.getObjects(this.props.filesandfolders, 'id', this.props.itemID);    
-            filesandfoldersfiltered = values[0].children;
+
+            let values = this.getObjects(this.props.filesandfolders, 'id', this.props.itemID);    
+            console.log(this.props.newListElement.length)
+            if (this.props.newListElement.length > 0  && values[0].hasChildren){
+                console.log('has children and new element')
+                filesandfoldersfiltered = values[0].children.concat(this.props.newListElement)    
+            }else if (this.props.newListElement.length > 0 && !values[0].hasChildren){
+                console.log('NO has children and new element')
+                console.log('this.props.newListElement')
+                console.log(this.props.newListElement.length)
+                values[0].hasChildren=true;
+                values[0].children = this.props.newListElement
+                filesandfoldersfiltered = values[0].children
+            }else{
+                filesandfoldersfiltered = values[0].children
+            }
+            console.log(filesandfoldersfiltered)
+            
         }else if (this.props.optionClicked === 'starred')
             filesandfoldersfiltered = this.props.filesandfolders.filter(ff => ff.star === true && ff.deleted===false);
         else if (this.props.optionClicked === 'recents'){

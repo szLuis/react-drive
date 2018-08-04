@@ -11,6 +11,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+const proxy = require('http-proxy-middleware');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -214,6 +215,15 @@ module.exports = {
       // ** STOP ** Are you adding a new loader?
       // Make sure to add the new loader(s) before the "file" loader.
     ],
+  },
+  devServer: {
+    
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8000',        
+        pathRewrite: {'^/api' : ''},
+      }
+    }
   },
   plugins: [
     // Makes some environment variables available in index.html.
