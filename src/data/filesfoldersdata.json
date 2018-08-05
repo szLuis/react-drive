@@ -360,33 +360,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": 2,
-      "icon": "folder",
-      "title": "pics",
-      "dateCreated": "2018-07-18",
-      "detailsLink": "#",
-      "star": false,
-      "deleted": false
-    },
-    {
-      "id": 3,
-      "icon": "folder",
-      "title": "pics",
-      "dateCreated": "2018-07-18",
-      "detailsLink": "#",
-      "star": false,
-      "deleted": false
-    },
-    {
-      "id": 4,
-      "icon": "folder",
-      "title": "asdasd",
-      "dateCreated": "2018-07-18",
-      "detailsLink": "#",
-      "star": false,
-      "deleted": false
     }
   ]
 }
