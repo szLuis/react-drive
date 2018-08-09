@@ -6,7 +6,7 @@ export class FolderForm extends Component{
         super(props);
 
         this.state={
-            folderName:this.props.folderName || '',    
+            name:this.props.folderName || '',    
         }
 
         this.handleFolderNameChange = this.handleFolderNameChange.bind(this);
@@ -15,14 +15,14 @@ export class FolderForm extends Component{
     
     handleFolderNameChange = (e) => {
         this.setState({
-            folderName: e.target.value
+            name: e.target.value
         });
     }
 
     handleSubmit = () => {
         this.props.onFormSubmit({
             id:this.props.id,
-            folderName: this.state.folderName,
+            name: this.state.name,
         })
     }
 
@@ -44,7 +44,7 @@ export class FolderForm extends Component{
                                 type="text" 
                                 className="form-control" 
                                 id="folderName" 
-                                value={this.state.folderName}
+                                value={this.state.name}
                                 onChange={this.handleFolderNameChange} 
                                 aria-describedby="folderNameHelp" placeholder="e.g pictures"/>
                             <small id="folderNameHelp" className="form-text text-muted">Please add a name.</small>

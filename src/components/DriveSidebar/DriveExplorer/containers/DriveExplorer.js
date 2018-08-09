@@ -2,10 +2,10 @@ import React, { Component } from "react"
 import DriveItemElement from './DriveItemElement'
 
 class DriveExplorer extends Component{
-    constructor(props){
-        super(props)        
+    // constructor(props){
+    //     super(props)        
        
-    }  
+    // }  
     
     getChildrenElements = (items) => {
         let result = [];

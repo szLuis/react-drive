@@ -5,9 +5,9 @@ import DriveExplorer from './DriveExplorer/containers/DriveExplorer';
 
 
 class DriveSidebar extends Component{
-    constructor(props){
-        super(props);
-    }
+    // constructor(props){
+    //     super(props);
+    // }
     render() {
         return (
             <div className="col-md-3">

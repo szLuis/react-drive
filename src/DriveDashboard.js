@@ -20,10 +20,12 @@ class DriveDashboard extends Component {
 
     this.state={
         filesandfolders:[],
-        newListElement:[],
+        filesandfoldersFiltered:[],
+        // newListElement:[],
         optionClicked: 'drive',
         loading: true,
-        itemID:''
+        itemID:'',
+        id:1
     }
   }
 
@@ -60,7 +62,7 @@ class DriveDashboard extends Component {
             objects = objects.concat(this.getObjects(obj[i], key, val));    
         } else 
         //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
-        if (i === key && obj[i] === val || i === key && val === '') { //
+        if ((i === key && obj[i] === val) || (i === key && val === '')) { //
             objects.push(obj);
         } else if (obj[i] === val && key === ''){
             //only add if the object is not already in the array
@@ -72,16 +74,28 @@ class DriveDashboard extends Component {
     return objects;
 }
 
+  handleAddElementToFilesAndFolders = (newList) => {
+    this.setState(
+      {
+        filesandfolders:newList,
+        // newListElement:[]
+      }
+    )
+  }
+
   // CREATE folder block
-  handleCreateFormSubmit = (FolderForm) => {
-    this.createFolderForm(FolderForm);
+  handleCreateFormSubmit = (Form, type) => {
+    this.addNewElement(Form, type);
   };
 
-  createFolderForm = (FolderForm) => {
-    const ff = FolderForm;
-    ff.id = this.state.filesandfolders.length + 31;
-    ff.icon = 'folder';
-    ff.title = FolderForm.folderName;
+  addNewElement = (Form, type) => {
+    console.log(Form)
+    const ff = Form;
+    
+    ff.id = (this.state.id + 31).toString();
+    ff.icon = type
+    ff.title = Form.name;
+    // ff.title = FolderForm.folderName;
     ff.dateCreated= "2018-07-18";
     ff.detailsLink='#';
     ff.star=false;
@@ -89,14 +103,23 @@ class DriveDashboard extends Component {
     ff.hasChildren= false;
     ff.children=[];
 
-    this.setState({      
-      newListElement: [ff],
-      //filesandfolders: this.state.filesandfolders.concat(ff),
-    })
-    this.handleDriveExplorerItemClick(this.state.itemID)
+    // this.setState({      
+      
+    //   //filesandfolders: this.state.filesandfolders.concat(ff),
+    // })
+    const newElement = [ff]
+    // const newList = this.addNewObjectToFilesAndFolders(this.state.filesandfolders, 'id', this.state.itemID, newElement )
+    // this.handleAddElementToFilesAndFolders(newList)
+    this.setState(
+      {
+        // newListElement: [ff],
+        id:this.state.id+1,
+      }
+    )
+    this.handleDriveExplorerItemClick(this.state.itemID, newElement)
     // const listOfElements = this.getObjects(this.state.filesandfolders, 'id', this.state.itemID);    
     // const newListOfElements = listOfElements[0].children.concat(ff)
-
+    
     // console.log(FolderForm;
     // axios.post(API, {
     //     id: ff.id,
@@ -207,34 +230,107 @@ class DriveDashboard extends Component {
 
   // CLICK event handlers for drive side bar
   handleStarredOptionClick = () => {
+     //
+    const elementsFiltered = this.state.filesandfolders.filter(ff => ff.star === true && ff.deleted===false)
     this.setState({
       optionClicked: 'starred',
+      filesandfoldersFiltered : elementsFiltered
     })
   }
 
+  getDateDaysAgo = (days) => {
+    const d = new Date();
+    const mes = d.getMonth() - 3 ;
+    const dia = d.getDate() - days;
+    console.log(dia)
+    const daysBack = d.getFullYear() + '-' + mes + '-' + dia;
+    const dateDaysAgo = Date.parse(daysBack);
+    
+    return dateDaysAgo
+  }
+
   handleRecentsOptionClick = () => {
+    const dateDaysAgo = this.getDateDaysAgo(5)
+    console.log(dateDaysAgo)
+    const elementsFiltered= this.state.filesandfolders.filter(ff => Date.parse(ff.dateCreated) >= dateDaysAgo && ff.deleted===false);
     this.setState({   
       optionClicked: 'recents',
+      filesandfoldersFiltered : elementsFiltered
     })
   }
 
   handleTrashOptionClick = () => {
+    const elementsFiltered = this.state.filesandfolders.filter(ff => ff.deleted === true );
     this.setState({
       optionClicked: 'trash',
+      filesandfoldersFiltered : elementsFiltered
     })
   }
 
-  handleDriveExplorerItemClick = (itemID) => {
+  handleDriveExplorerItemClick = (itemID, newElement) => {
     //const values = this.getObjects(this.state.filesandfolders, 'id', itemID)
     //console.log(values[0].children)
-    this.setState({
-      optionClicked: 'folder',
-      itemID:itemID,
-    })
+    // this.setState({
+    //   optionClicked: 'folder',
+    //   itemID:itemID,
+    // })
+console.log(itemID)
+console.log('itemID')
+    this.driveExplorerItemClicked(itemID, newElement)
     //if (typeof values == 'object') {
     // this.setState({
     //   filesandfolders:values[0].children
     // })
+  }
+
+  driveExplorerItemClicked = (itemID, newElement) => {
+
+            // get children for folder clicked 
+            let values = this.getObjects(this.state.filesandfolders, 'id',itemID);
+            // let newFolderObject = [];
+            let filesandfoldersfiltered =[];
+            
+            // if (newElement !== undefined){
+            //   console.log('newElement.length')
+            //   console.log(newElement)
+            // }
+            //console.log(values[0].hasChildren)
+            // newListElement is the new one to add to all objects in the current path
+            //if (this.state.newListElement.length > 0  && values[0].hasChildren){
+              if (newElement !== undefined  && values[0].hasChildren){
+                // console.log('has children and add new element')
+                values[0].children =values[0].children.concat(newElement)
+                filesandfoldersfiltered = values[0].children
+                // console.log('new files and folders ')                
+                // newFolderObject = this.addNewObjectToFilesAndFolders(this.state.filesandfolders, 'id', itemID, newElement)
+                // console.log(newFolderObject)
+                // this.onAddElementToFilesAndFolders(newFolderObject)
+            //}else if (this.state.newListElement.length > 0 && !values[0].hasChildren){
+            }else if (newElement !== undefined  && !values[0].hasChildren){
+                // console.log('NO has children and new element Added')
+                // console.log('this.props.newListElement')
+                // console.log(newElement)
+                values[0].hasChildren=true;
+                values[0].children = newElement
+                filesandfoldersfiltered = values[0].children
+                
+                // console.log('new files and folders ')                
+                // const newFolderObject = this.addNewObjectToFilesAndFolders(this.state.filesandfolders, 'id', itemID, newElement)
+                // console.log(newFolderObject)
+                // this.state.onAddElementToFilesAndFolders(newFolderObject)
+            }else{
+                filesandfoldersfiltered = values[0].children
+            }
+            // console.log('filesandfoldersfiltered')
+            // console.log(filesandfoldersfiltered)
+            
+        
+        this.setState({
+          optionClicked: 'folder',
+          filesandfoldersFiltered:filesandfoldersfiltered,
+          itemID:itemID,
+        })
+        
   }
   
 
@@ -256,10 +352,11 @@ class DriveDashboard extends Component {
               onListElementStar={this.handleListElementStar} 
               onListElementDelete={this.handleListElementDelete} 
               onFormSubmit={this.handleUpdateFormSubmit} 
-              filesandfolders={this.state.filesandfolders}
+              filesandfolders={this.state.optionClicked === 'drive'? this.state.filesandfolders : this.state.filesandfoldersFiltered}
               itemID={this.state.itemID}
               loading={this.state.loading}
-              newListElement={this.state.newListElement}
+              // newListElement={this.state.newListElement}
+              onAddElementToFilesAndFolders={this.handleAddElementToFilesAndFolders}
             />
           </div>
       </div>

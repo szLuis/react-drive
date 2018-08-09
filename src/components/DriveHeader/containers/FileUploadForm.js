@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 const API ="http://127.0.0.1:8000/uploadfile/";
+const FORM_TYPE = 'file'
 
 class FileUploadForm extends Component{
     constructor(props) {
@@ -17,6 +18,7 @@ class FileUploadForm extends Component{
         e.preventDefault() // Stop form submit
         this.fileUpload(this.state.file)
         .then((response)=>{
+          this.props.onFormSubmit(this.state.file, FORM_TYPE)
           console.log(response.data);
         }).catch((error) => {
           console.log(error)
