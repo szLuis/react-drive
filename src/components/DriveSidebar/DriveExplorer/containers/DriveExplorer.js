@@ -2,10 +2,7 @@ import React, { Component } from "react"
 import DriveItemElement from './DriveItemElement'
 
 class DriveExplorer extends Component{
-    // constructor(props){
-    //     super(props)        
-       
-    // }  
+     
     
     getChildrenElements = (items) => {
         let result = [];
@@ -26,6 +23,7 @@ class DriveExplorer extends Component{
                                                     title={child.title}
                                                     children={resultChild} 
                                                     onItemClick={this.props.onItemClick}
+                                                    onOptionClick={this.props.onOptionClick}
                                                 />)
                                         
                         resultChild =[]
@@ -38,6 +36,7 @@ class DriveExplorer extends Component{
                             key={item.id}
                             title={item.title} 
                             onItemClick={this.props.onItemClick}
+                            onOptionClick={this.props.onOptionClick}
                         />)
                     
             }            
@@ -48,6 +47,7 @@ class DriveExplorer extends Component{
                         title={item.title}
                         children={result} 
                         onItemClick={this.props.onItemClick}
+                        onOptionClick={this.props.onOptionClick}
                     />)
         })
         return elements;

@@ -1,9 +1,9 @@
 <rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
-<li class="list-group-item borderless " >
+<li class="list-group-item borderless {this.props.optionActivated === 'folder' ? 'active' : ' ' }" >
 
 <FontAwesomeIcon key="caret-{this.props.id}" id="caret-{this.props.id}" onClick={this.handleCaretClick} style="position: inherit; margin-left:-10px; " icon="{this.state.isOpen === true ? 'caret-down' : 'caret-right' }" />
 <FontAwesomeIcon style="position: inherit; margin-left:10px" icon="folder" /> 
-<span id="{this.props.id}" style="margin-left: 3px;"  onClick={this.handleDriveExplorerItemClick} >
+<span id="{this.props.id}" style="margin-left: 3px; " onClick={this.handleDriveExplorerItemClick} >
     {this.props.title}
 </span>
 <ul class="list-group {this.state.isOpen ? '' : 'hidden' }">

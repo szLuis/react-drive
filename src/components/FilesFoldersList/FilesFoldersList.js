@@ -16,6 +16,7 @@ class FilesFoldersList extends Component{
                 dateCreated={filefolder.dateCreated}
                 details={filefolder.details}
                 star={filefolder.star}
+                onDoubleClick={this.props.onDoubleClickListElement}
                 onFormSubmit={this.props.onFormSubmit}
                 onListElementDelete={this.props.onListElementDelete}
                 onListElementStar={this.props.onListElementStar}

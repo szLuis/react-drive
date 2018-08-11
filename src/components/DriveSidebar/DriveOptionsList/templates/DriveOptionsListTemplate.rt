@@ -1,19 +1,19 @@
 <rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
 <div >
   <a id="recents" href="javascript:void(0);" 
-      class="list-group-item list-group-item-action {this.state.optionActivated === 'recents' ? ' active' : '' }" 
+      class="list-group-item list-group-item-action {this.props.optionActivated === 'recents' ? ' active' : '' }" 
       onClick={this.handleRecentsClick}> 
     <FontAwesomeIcon icon="clock" style="position: inherit; margin-left:5px " />
     Recents  
   </a>
   <a id="star" href="javascript:void(0);" 
-      class="list-group-item list-group-item-action {this.state.optionActivated === 'star' ? ' active' : '' } "  
+      class="list-group-item list-group-item-action {this.props.optionActivated === 'star' ? ' active' : '' } "  
       onClick={this.handleStarClick}> 
     <FontAwesomeIcon icon="star" style="position: inherit; margin-left:5px" /> 
     Starred 
   </a>
   <a id="trash" href="javascript:void(0);" 
-      class="list-group-item list-group-item-action {this.state.optionActivated === 'trash' ? ' active' : '' }" 
+      class="list-group-item list-group-item-action {this.props.optionActivated === 'trash' ? ' active' : '' }" 
       onClick={this.handleTrashClick}> 
     <FontAwesomeIcon icon="trash"  style="position: inherit; margin-left:5px"  /> 
     Trash 

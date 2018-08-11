@@ -5,9 +5,9 @@ class DriveOptionsList extends Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            optionActivated: '',
-        }
+        // this.state = {
+        //     optionActivated: '',
+        // }
     }
 
     handleStarClick = (e) => {
@@ -27,9 +27,10 @@ class DriveOptionsList extends Component{
     }
 
     activeOption = (e) => {
-        this.setState({
-            optionActivated : e.target.id,
-        })
+        this.props.onOptionClick(e)
+        // this.setState({
+        //     optionActivated : e.target.id,
+        // })
     }
 
     render(){

@@ -1,11 +1,7 @@
 <div class="row" >
     <div class="col-md-8">
         <form class="bd-search d-flex align-items-center">
-        <!--   <span class="algolia-autocomplete" style="position: relative; display: inline; direction: ltr;">-->
-        <input type="search" class="form-control ds-input" id="search-input" placeholder="Search..." autocomplete="off" data-siteurl="https://getbootstrap.com" data-docs-version="4.1" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="position: relative; vertical-align: top;">
-        
-        <!--   <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path></svg>
-        </button> -->
+            <input type="search" class="form-control" id="search-input" placeholder="Search..."  style="position: relative; vertical-align: top; width: 45rem; ">
         </form>
     </div>
 </div>

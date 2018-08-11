@@ -4,7 +4,7 @@ import axios from 'axios';
 const API ="http://127.0.0.1:8000/uploadfile/";
 const FORM_TYPE = 'file'
 
-class FileUploadForm extends Component{
+export class FileUploadForm extends Component{
     constructor(props) {
         super(props);
         this.state ={
@@ -45,13 +45,31 @@ class FileUploadForm extends Component{
 
     render() {
         return (
-          <form onSubmit={this.onFormSubmit}>
-            <h1>File Upload</h1>
-            <input type="file" onChange={this.onChange} />
-            <button type="submit">Upload</button>
-          </form>
+          <div className="container ">
+                <div className="row ">
+                    <div className="col"></div>
+                    <div className="col-md-6">
+                        <form onSubmit={this.onFormSubmit}>
+                          <div className="form-group">
+                              <label htmlFor="fileName">Upload File: </label>
+                              <input type="file" className="form-control" onChange={this.onChange} />
+                              <button type="submit" className="btn btn-success"  >Upload</button>
+                              <button type="button" className="btn btn-primary mr-2" onClick={this.props.onFormClose}>Cancel</button>
+                          </div>
+                        </form>
+                    </div>
+                  <div className="col"></div>
+              </div>
+          </div>
+          
+          
        )
     }
 }
 
 export default FileUploadForm;
+/* <form onSubmit={this.onFormSubmit}>
+          <h1>File Upload</h1>
+          <input type="file" onChange={this.onChange} />
+          <button type="submit">Upload</button>
+        </form> */

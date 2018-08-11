@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import ToggleableFormTemplate from '../templates/ToggleableForm.rt';
+import ToggleableFormTemplate from '../templates/ToggleableFormTemplate.rt';
 import onClickOutside from 'react-onclickoutside';
 
 const FORM_TYPE = 'folder'
@@ -9,30 +9,48 @@ class ToggleableForm extends Component{
         super(props);
         
         this.state={
-            isOpen:false,
+            folderFormIsOpen:false,
+            fileUploadFormIsOpen:false,
         }
 
-        this.toggleForm = this.toggleForm.bind(this);
+        this.toggleFolderForm = this.toggleFolderForm.bind(this)
+        this.toggleFileUploadForm = this.toggleFileUploadForm.bind(this)
+        this.handleFileUploadFormClose = this.handleFileUploadFormClose.bind(this)
+        this.handleFolderFormClose = this.handleFolderFormClose.bind(this)
     }
 
-    toggleForm(){
+    toggleFolderForm(e){
         this.setState(prevState => ({
-            isOpen: !prevState.isOpen,      
+            folderFormIsOpen: !prevState.folderFormIsOpen,
+            fileUploadFormIsOpen: false,
         }))
     }
 
-    handleFormClose = () => {
-        this.setState({ isOpen:false});
+    toggleFileUploadForm(e){
+        this.setState(prevState => ({
+            fileUploadFormIsOpen: !prevState.fileUploadFormIsOpen,    
+            folderFormIsOpen: false,   
+        }))
     }
 
-    handleFormSubmit = (FolderForm) => {
+    handleFileUploadFormClose = () => {
+        this.setState({ fileUploadFormIsOpen:false});
+    }
+
+    handleFolderFormClose = () => {
+        this.setState({ folderFormIsOpen:false});
+    }
+
+
+    handleFolderFormSubmit = (FolderForm) => {
         this.props.onFormSubmit(FolderForm, FORM_TYPE);
-        this.setState({ isOpen:false});
+        this.setState({ folderFormIsOpen:false});
     }
 
     handleClickOutside(){
         this.setState({
-            isOpen: false,
+            folderFormIsOpen: false,
+            fileUploadFormIsOpen: false,
         })
     }
 

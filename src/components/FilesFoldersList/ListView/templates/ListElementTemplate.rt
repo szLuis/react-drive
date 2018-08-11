@@ -1,6 +1,6 @@
 <rt-import name="FolderForm" from="../../../DriveHeader/containers/FolderForm" />
 <rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
-<li class="list-group-item item-container" id={this.props.id}>
+<li class="list-group-item item-container" id={this.props.id} onDoubleClick={this.handleDoubleClick}>
 	<div class="row" rt-if="this.state.editFormOpen===false">
 		<div class="avatar d-none d-md-block">
 			<div class="d-flex w-100 align-items-end">

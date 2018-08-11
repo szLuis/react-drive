@@ -10,8 +10,8 @@ import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
 import axios from 'axios';
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight );
 
-const API ="https://drive-js-server.herokuapp.com/filesfolders/";
-//const API ="http://localhost:3001/filesfolders";
+// const API ="https://drive-js-server.herokuapp.com/filesfolders/";
+const API ="http://localhost:3001/filesfolders";
 //const API ="http://192.168.43.208:3001/filesfolders";
 
 class DriveDashboard extends Component {
@@ -24,16 +24,16 @@ class DriveDashboard extends Component {
         // newListElement:[],
         optionClicked: 'drive',
         loading: true,
-        itemID:'',
+        itemID: '',
         id:1
     }
+    this.showItemsOfRootFolder = this.showItemsOfRootFolder.bind(this)
+    this.driveExplorerItemClicked = this.driveExplorerItemClicked.bind(this)
   }
-
-
 
   componentDidMount(){
     axios.get(API)
-    .then( (response) => {     
+    .then( (response) => {   
 	//console.log('files and folders keys')
 	//const objfilefolder = response.data
       //console.log(Object.entries(objfilefolder)) 
@@ -42,17 +42,24 @@ class DriveDashboard extends Component {
       {        
         filesandfolders: response.data,
         loading:false,
-      })}
-    )
+        itemID:response.data[0].id,
+      })
+    })
+    .then(() => {
+      this.showItemsOfRootFolder()
+    })
     .catch( (error) => {
       this.setState({
-        loading:true,
+        loading:false,
       })
       console.log(error);
     })
     
   }
 
+  showItemsOfRootFolder(){
+    this.driveExplorerItemClicked(this.state.itemID)
+  }
   //return an array of objects according to key, value, or key and value matching
   getObjects(obj, key, val) {
     var objects = [];
@@ -274,8 +281,6 @@ class DriveDashboard extends Component {
     //   optionClicked: 'folder',
     //   itemID:itemID,
     // })
-console.log(itemID)
-console.log('itemID')
     this.driveExplorerItemClicked(itemID, newElement)
     //if (typeof values == 'object') {
     // this.setState({
@@ -319,11 +324,12 @@ console.log('itemID')
                 // console.log(newFolderObject)
                 // this.state.onAddElementToFilesAndFolders(newFolderObject)
             }else{
+              
                 filesandfoldersfiltered = values[0].children
             }
             // console.log('filesandfoldersfiltered')
             // console.log(filesandfoldersfiltered)
-            
+        
         
         this.setState({
           optionClicked: 'folder',
@@ -332,6 +338,26 @@ console.log('itemID')
         })
         
   }
+
+  handleDoubleClickListElement = (listElementId) =>{
+    this.doubleClickListElement(listElementId)
+  }
+
+  doubleClickListElement = (itemID) => {
+
+    // get children for folder clicked 
+    let values = this.getObjects(this.state.filesandfolders, 'id',itemID);
+    let filesandfoldersfiltered =[];
+      
+    filesandfoldersfiltered = values[0].children
+
+    this.setState({
+      //optionClicked: 'folder',
+      filesandfoldersFiltered:filesandfoldersfiltered,
+      itemID:itemID,
+    })
+
+}
   
 
   render() {
@@ -357,6 +383,7 @@ console.log('itemID')
               loading={this.state.loading}
               // newListElement={this.state.newListElement}
               onAddElementToFilesAndFolders={this.handleAddElementToFilesAndFolders}
+              onDoubleClickListElement={this.handleDoubleClickListElement}
             />
           </div>
       </div>

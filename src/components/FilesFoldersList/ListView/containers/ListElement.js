@@ -10,6 +10,11 @@ class ListElement extends Component{
         this.handleEditClick = this.handleEditClick.bind(this);
     }
 
+    handleDoubleClick = () => {
+        if (this.props.icon==='folder')
+        this.props.onDoubleClick(this.props.id)
+    }
+
     handleEditClick = () => {        
         this.openForm();
     }
