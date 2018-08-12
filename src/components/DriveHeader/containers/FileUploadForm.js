@@ -16,13 +16,14 @@ export class FileUploadForm extends Component{
       }
       onFormSubmit(e){
         e.preventDefault() // Stop form submit
-        this.fileUpload(this.state.file)
-        .then((response)=>{
-          this.props.onFormSubmit(this.state.file, FORM_TYPE)
-          console.log(response.data);
-        }).catch((error) => {
-          console.log(error)
-        })
+        this.props.onFormSubmit(this.state.file, FORM_TYPE)
+        // this.fileUpload(this.state.file)
+        // .then((response)=>{
+        //   this.props.onFormSubmit(this.state.file, FORM_TYPE)
+        //   console.log(response.data);
+        // }).catch((error) => {
+        //   console.log(error)
+        // })
       }
       onChange(e) {
         this.setState({
