@@ -8,6 +8,7 @@ import DriveHeader from './components/DriveHeader/DriveHeader';
 import DriveSidebar from './components/DriveSidebar/DriveSidebar';
 import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
 import axios from 'axios';
+import Breadcrumbs from './components/DriveHeader/containers/Breadcrumbs';
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight );
 
 const API ="https://drive-js-server.herokuapp.com/filesfolders/";
@@ -21,6 +22,7 @@ class DriveDashboard extends Component {
     this.state={
         filesandfolders:[],
         filesandfoldersFiltered:[],
+        breadcrumbs:[],
         // newListElement:[],
         optionClicked: 'drive',
         loading: true,
@@ -43,6 +45,7 @@ class DriveDashboard extends Component {
         filesandfolders: response.data,
         loading:false,
         itemID:response.data[0].id,
+        breadcrumbs:[response.data[0].title]
       })
     })
     .then(() => {
@@ -354,6 +357,7 @@ class DriveDashboard extends Component {
     this.setState({
       //optionClicked: 'folder',
       filesandfoldersFiltered:filesandfoldersfiltered,
+      breadcrumbs:this.state.breadcrumbs.concat(values[0].title),
       itemID:itemID,
     })
 
@@ -364,7 +368,7 @@ class DriveDashboard extends Component {
     
     return (<div className="container">
           <DriveHeader onFormSubmit={this.handleCreateFormSubmit} />
-          {/* <Breadcrumbs appName="Drive" imageURL="assets/img/drive-icon.png"/> */}
+          <Breadcrumbs breadcrumbs={this.state.breadcrumbs} appName="Drive" imageURL="assets/img/drive-icon.png"/> 
           <div className="row">
             <DriveSidebar 
               onStarredOptionClick={this.handleStarredOptionClick}

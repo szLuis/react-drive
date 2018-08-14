@@ -4,10 +4,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 class Breadcrumbs extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return BreadcrumbsTemplate.apply(this)
     }   
