@@ -376,6 +376,7 @@ class DriveDashboard extends Component {
               onTrashOptionClick={this.handleTrashOptionClick}
               onDriveExplorerItemClick={this.handleDriveExplorerItemClick}
               filesandfolders={this.state.filesandfolders}
+              
             />
             <FilesFoldersList 
               optionClicked={this.state.optionClicked}

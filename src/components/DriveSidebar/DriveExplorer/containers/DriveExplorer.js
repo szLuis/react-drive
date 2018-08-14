@@ -24,6 +24,7 @@ class DriveExplorer extends Component{
                                                     children={resultChild} 
                                                     onItemClick={this.props.onItemClick}
                                                     onOptionClick={this.props.onOptionClick}
+                                                    optionActivated={this.props.optionActivated}
                                                 />)
                                         
                         resultChild =[]
@@ -37,6 +38,7 @@ class DriveExplorer extends Component{
                             title={item.title} 
                             onItemClick={this.props.onItemClick}
                             onOptionClick={this.props.onOptionClick}
+                            optionActivated={this.props.optionActivated}
                         />)
                     
             }            
@@ -48,6 +50,7 @@ class DriveExplorer extends Component{
                         children={result} 
                         onItemClick={this.props.onItemClick}
                         onOptionClick={this.props.onOptionClick}
+                        optionActivated={this.props.optionActivated}
                     />)
         })
         return elements;

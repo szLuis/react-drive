@@ -12,8 +12,6 @@ class DriveItemElement extends Component{
     }
     
     handleDriveExplorerItemClick = (e) => {
-        console.log('DriveExplorer item clicked' + e.target.id)
-        
         this.props.onItemClick(e.target.id)
         this.driveExplorerItemActive(e)
     }
@@ -23,12 +21,9 @@ class DriveItemElement extends Component{
     }
 
     handleCaretClick = (e) => {
-        console.log('caret clicked' + e.target.id)
-        
         this.setState({
             isOpen:!this.state.isOpen,
         })
-        console.log(this.state.isOpen)
     }
 
     render(){
