@@ -11,8 +11,8 @@ import axios from 'axios';
 import Breadcrumbs from './components/DriveHeader/containers/Breadcrumbs';
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight );
 
-//const API ="https://drive-js-server.herokuapp.com/filesfolders/";
-const API ="http://localhost:3001/filesfolders";
+const API ="https://drive-js-server.herokuapp.com/filesfolders/";
+//const API ="http://localhost:3001/filesfolders";
 //const API ="http://127.0.0.1:8000/filedirectory/";
 //const API ="http://192.168.43.208:3001/filesfolders";
 
