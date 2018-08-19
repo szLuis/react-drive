@@ -3,7 +3,7 @@
     <div class="card-block">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li rt-repeat="myNum in this.props.breadcrumbs" class="breadcrumb-item {this.props.breadcrumbs.length === myNumIndex + 1 ? ' active' : ''} " aria-current="page"><a href="#" rt-if=" myNumIndex + 1 < this.props.breadcrumbs.length ">{myNum}</a><span rt-if=" myNumIndex + 1 === this.props.breadcrumbs.length ">{myNum}</span></li>
+                <li rt-repeat="breadcrumb in this.props.breadcrumbs" class="breadcrumb-item {this.props.breadcrumbs.length === breadcrumbIndex + 1 ? ' active' : ''} " aria-current="page"><a href="#" rt-if="breadcrumbIndex + 1 < this.props.breadcrumbs.length ">{breadcrumb}</a><span rt-if=" breadcrumbIndex + 1 === this.props.breadcrumbs.length ">{breadcrumb}</span></li>
             </ol>
         </nav>
         <!--<div class="appbreadcrumb-container">

@@ -11,8 +11,9 @@ import axios from 'axios';
 import Breadcrumbs from './components/DriveHeader/containers/Breadcrumbs';
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight );
 
-const API ="https://drive-js-server.herokuapp.com/filesfolders/";
-//const API ="http://localhost:3001/filesfolders";
+//const API ="https://drive-js-server.herokuapp.com/filesfolders/";
+const API ="http://localhost:3001/filesfolders";
+//const API ="http://127.0.0.1:8000/filedirectory/";
 //const API ="http://192.168.43.208:3001/filesfolders";
 
 class DriveDashboard extends Component {
@@ -24,6 +25,7 @@ class DriveDashboard extends Component {
         filesandfoldersFiltered:[],
         breadcrumbs:[],
         // newListElement:[],
+        showMsgFolderCreated:false,
         optionClicked: 'drive',
         loading: true,
         itemID: '',
@@ -40,6 +42,7 @@ class DriveDashboard extends Component {
 	//const objfilefolder = response.data
       //console.log(Object.entries(objfilefolder)) 
 //Object.entries(objfilefolder).forEach(([key, value]) => console.log(`${key}: ${value}`));
+console.log(response.data)
       this.setState(
       {        
         filesandfolders: response.data,
@@ -295,6 +298,7 @@ class DriveDashboard extends Component {
 
             // get children for folder clicked 
             let values = this.getObjects(this.state.filesandfolders, 'id',itemID);
+            let showMsg = true
             // let newFolderObject = [];
             let filesandfoldersfiltered =[];
             
@@ -327,7 +331,7 @@ class DriveDashboard extends Component {
                 // console.log(newFolderObject)
                 // this.state.onAddElementToFilesAndFolders(newFolderObject)
             }else{
-              
+                showMsg=false
                 filesandfoldersfiltered = values[0].children
             }
             // console.log('filesandfoldersfiltered')
@@ -337,6 +341,7 @@ class DriveDashboard extends Component {
         this.setState({
           optionClicked: 'folder',
           filesandfoldersFiltered:filesandfoldersfiltered,
+          showMsgFolderCreated:showMsg,
           itemID:itemID,
         })
         
@@ -367,7 +372,7 @@ class DriveDashboard extends Component {
   render() {
     
     return (<div className="container">
-          <DriveHeader onFormSubmit={this.handleCreateFormSubmit} />
+          <DriveHeader showMsgFolderCreated={this.state.showMsgFolderCreated} onFormSubmit={this.handleCreateFormSubmit} />
           <Breadcrumbs breadcrumbs={this.state.breadcrumbs} appName="Drive" imageURL="assets/img/drive-icon.png"/> 
           <div className="row">
             <DriveSidebar 

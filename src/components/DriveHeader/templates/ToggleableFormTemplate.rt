@@ -33,4 +33,13 @@
             <FileUploadForm onFormSubmit={this.props.onFormSubmit} onFormClose={this.handleFileUploadFormClose} />
         </div>
     </div>
+    <div rt-if="this.props.showMsgFolderCreated"  class="container " >
+        <div class="row ">
+            <div  class="col"></div>
+            <div class="alert alert-success col-md-8" role="alert">
+                Folder created!
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
 </section>

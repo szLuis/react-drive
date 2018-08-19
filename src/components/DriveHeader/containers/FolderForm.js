@@ -49,7 +49,7 @@ export class FolderForm extends Component{
                                 aria-describedby="folderNameHelp" placeholder="e.g pictures"/>
                             <small id="folderNameHelp" className="form-text text-muted">Please add a name.</small>
                         </div>
-                        <button className="btn btn-success" onClick={this.handleSubmit}>{submitText}</button>
+                        <button className="btn btn-success" disabled={!this.state.name}  onClick={this.handleSubmit}>{submitText}</button>
                         <button className="btn btn-primary mr-2" onClick={this.props.onFormClose}>Cancel</button>
                         </form>
                     </div>

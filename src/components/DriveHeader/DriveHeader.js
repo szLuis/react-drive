@@ -7,7 +7,7 @@ class DriveHeader extends Component{
         return(<div className="row">
                 <div className="col-md-12">
                     {/* <ToggleableDriveContextualMenu isOpen="true"/> */}
-                        <ToggleableForm onFormSubmit={this.props.onFormSubmit} />
+                        <ToggleableForm showMsgFolderCreated={this.props.showMsgFolderCreated} onFormSubmit={this.props.onFormSubmit} />
                     </div>
             </div>
         )
