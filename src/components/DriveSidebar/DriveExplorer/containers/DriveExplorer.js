@@ -18,7 +18,7 @@ class DriveExplorer extends Component{
                             resultChild = resultChild.concat (this.getChildrenElements(childElementsFiltered));
                         } 
                         result = result.concat (<DriveItemElement
-                                                    id={child.id}
+                                                    id={child.id.toString()}
                                                     key={child.id}
                                                     title={child.title}
                                                     children={resultChild} 
@@ -33,7 +33,7 @@ class DriveExplorer extends Component{
             }else{
                 
                 return (<DriveItemElement
-                            id={item.id}
+                            id={item.id.toString()}
                             key={item.id}
                             title={item.title} 
                             onItemClick={this.props.onItemClick}
@@ -44,7 +44,7 @@ class DriveExplorer extends Component{
             }            
             
             return(<DriveItemElement
-                        id={item.id}
+                        id={item.id.toString()}
                         key={item.id}
                         title={item.title}
                         children={result} 

@@ -11,9 +11,9 @@ import axios from 'axios';
 import Breadcrumbs from './components/DriveHeader/containers/Breadcrumbs';
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight );
 
-const API ="https://drive-js-server.herokuapp.com/filesfolders/";
-//const API ="http://localhost:3001/filesfolders";
-//const API ="http://127.0.0.1:8000/filedirectory/";
+//const API ="https://drive-js-server.herokuapp.com/filesfolders/";
+// const API ="http://localhost:3001/filesfolders";
+const API ="http://127.0.0.1:8000/filedirectory/";
 //const API ="http://192.168.43.208:3001/filesfolders";
 
 class DriveDashboard extends Component {
@@ -297,46 +297,23 @@ console.log(response.data)
   driveExplorerItemClicked = (itemID, newElement) => {
 
             // get children for folder clicked 
-            let values = this.getObjects(this.state.filesandfolders, 'id',itemID);
+            //console.log(itemID)
+            const itemIdInteger = parseInt(itemID,10) //id value is integer so it needs to be converted before
+            let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
             let showMsg = true
-            // let newFolderObject = [];
             let filesandfoldersfiltered =[];
             
-            // if (newElement !== undefined){
-            //   console.log('newElement.length')
-            //   console.log(newElement)
-            // }
-            //console.log(values[0].hasChildren)
-            // newListElement is the new one to add to all objects in the current path
-            //if (this.state.newListElement.length > 0  && values[0].hasChildren){
               if (newElement !== undefined  && values[0].hasChildren){
-                // console.log('has children and add new element')
                 values[0].children =values[0].children.concat(newElement)
                 filesandfoldersfiltered = values[0].children
-                // console.log('new files and folders ')                
-                // newFolderObject = this.addNewObjectToFilesAndFolders(this.state.filesandfolders, 'id', itemID, newElement)
-                // console.log(newFolderObject)
-                // this.onAddElementToFilesAndFolders(newFolderObject)
-            //}else if (this.state.newListElement.length > 0 && !values[0].hasChildren){
             }else if (newElement !== undefined  && !values[0].hasChildren){
-                // console.log('NO has children and new element Added')
-                // console.log('this.props.newListElement')
-                // console.log(newElement)
                 values[0].hasChildren=true;
                 values[0].children = newElement
                 filesandfoldersfiltered = values[0].children
-                
-                // console.log('new files and folders ')                
-                // const newFolderObject = this.addNewObjectToFilesAndFolders(this.state.filesandfolders, 'id', itemID, newElement)
-                // console.log(newFolderObject)
-                // this.state.onAddElementToFilesAndFolders(newFolderObject)
             }else{
                 showMsg=false
                 filesandfoldersfiltered = values[0].children
             }
-            // console.log('filesandfoldersfiltered')
-            // console.log(filesandfoldersfiltered)
-        
         
         this.setState({
           optionClicked: 'folder',
