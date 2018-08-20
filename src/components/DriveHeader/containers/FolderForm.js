@@ -20,7 +20,7 @@ export class FolderForm extends Component{
     }
 
     handleSubmit = () => {
-        this.props.onFormSubmit({
+        this.props.onFolderFormSubmit({
             id:this.props.id,
             name: this.state.name,
         })

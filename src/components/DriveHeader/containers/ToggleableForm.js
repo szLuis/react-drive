@@ -2,8 +2,6 @@ import { Component } from 'react';
 import ToggleableFormTemplate from '../templates/ToggleableFormTemplate.rt';
 import onClickOutside from 'react-onclickoutside';
 
-const FORM_TYPE = 'folder'
-
 class ToggleableForm extends Component{
     constructor(props){
         super(props);
@@ -41,9 +39,12 @@ class ToggleableForm extends Component{
         this.setState({ folderFormIsOpen:false});
     }
 
+    handleFileUploadFormSubmit = (FileUploadForm) => {
+        this.props.onFileUploadFormSubmit(FileUploadForm)
+    }
 
     handleFolderFormSubmit = (FolderForm) => {
-        this.props.onFormSubmit(FolderForm, FORM_TYPE);
+        this.props.onFolderFormSubmit(FolderForm);
         this.setState({ folderFormIsOpen:false});
     }
 

@@ -24,13 +24,18 @@
     <div rt-if="this.state.folderFormIsOpen">
         <hr>
         <div class="card-block">
-            <FolderForm onFormSubmit={this.handleFolderFormSubmit} onFormClose={this.handleFolderFormClose} />
+            <FolderForm onFolderFormSubmit={this.handleFolderFormSubmit} onFormClose={this.handleFolderFormClose} />
         </div>
     </div>
     <div rt-if="this.state.fileUploadFormIsOpen">
         <hr>
         <div class="card-block">
-            <FileUploadForm onFormSubmit={this.props.onFormSubmit} onFormClose={this.handleFileUploadFormClose} />
+            <FileUploadForm 
+                onFileUploadFormSubmit={this.handleFileUploadFormSubmit} 
+                onFormClose={this.handleFileUploadFormClose} 
+                uploadProgress={this.props.uploadProgress}
+                styles={this.props.styles}
+            />
         </div>
     </div>
     <div rt-if="this.props.showMsgFolderCreated"  class="container " >

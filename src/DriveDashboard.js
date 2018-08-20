@@ -13,7 +13,10 @@ library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, fa
 
 //const API ="https://drive-js-server.herokuapp.com/filesfolders/";
 // const API ="http://localhost:3001/filesfolders";
-const API ="http://127.0.0.1:8000/filedirectory/";
+const API ="http://127.0.0.1:8000/"
+const FILE_DIRECTORY = "filedirectory/"
+const CREATE_FOLDER = "createdirectory/"
+const FILE_UPLOAD_URL ="uploadfile/";
 //const API ="http://192.168.43.208:3001/filesfolders";
 
 class DriveDashboard extends Component {
@@ -29,6 +32,10 @@ class DriveDashboard extends Component {
         optionClicked: 'drive',
         loading: true,
         itemID: '',
+        uploadProgress:0,          
+          styles:{
+            width:'0%',
+          },
         id:1
     }
     this.showItemsOfRootFolder = this.showItemsOfRootFolder.bind(this)
@@ -36,13 +43,8 @@ class DriveDashboard extends Component {
   }
 
   componentDidMount(){
-    axios.get(API)
+    axios.get(API+FILE_DIRECTORY)
     .then( (response) => {   
-	//console.log('files and folders keys')
-	//const objfilefolder = response.data
-      //console.log(Object.entries(objfilefolder)) 
-//Object.entries(objfilefolder).forEach(([key, value]) => console.log(`${key}: ${value}`));
-console.log(response.data)
       this.setState(
       {        
         filesandfolders: response.data,
@@ -91,68 +93,135 @@ console.log(response.data)
     this.setState(
       {
         filesandfolders:newList,
-        // newListElement:[]
       }
     )
   }
 
   // CREATE folder block
-  handleCreateFormSubmit = (Form, type) => {
-    this.addNewElement(Form, type);
+  handleCreateFolderFormSubmit = (Form) => {
+    this.addNewFolderElement(Form);
   };
 
-  addNewElement = (Form, type) => {
+  addNewFolderElement = (Form) => {
     console.log(Form)
     const ff = Form;
     
-    ff.id = (this.state.id + 31).toString();
-    ff.icon = type
+    ff.icon = 'folder'
     ff.title = Form.name;
-    // ff.title = FolderForm.folderName;
     ff.dateCreated= "2018-07-18";
-    ff.detailsLink='#';
-    ff.star=false;
-    ff.deleted=false;
-    ff.hasChildren= false;
-    ff.children=[];
+    ff.detailsLink='#'
+    ff.star=false
+    ff.deleted=false
+    ff.hasChildren=false
+    ff.children=[]
 
-    // this.setState({      
-      
-    //   //filesandfolders: this.state.filesandfolders.concat(ff),
-    // })
-    const newElement = [ff]
-    // const newList = this.addNewObjectToFilesAndFolders(this.state.filesandfolders, 'id', this.state.itemID, newElement )
-    // this.handleAddElementToFilesAndFolders(newList)
+    axios.post(API + CREATE_FOLDER, {
+        idTargetDirectory: this.state.itemID,
+        targetDirectory: this.state.breadcrumbs, // current or target directory
+        icon: ff.icon,
+        directoryName: ff.title,
+        star: false,
+        deleted: false,
+    })
+    .then((response) => {
+      ff.id = response.data.id
+      const newElement = [ff]
+      this.handleDriveExplorerItemClick(this.state.itemID, newElement)
+    })
+    .catch(function (error){
+      console.log(error);
+    })
+
+    
     this.setState(
       {
-        // newListElement: [ff],
         id:this.state.id+1,
       }
     )
-    this.handleDriveExplorerItemClick(this.state.itemID, newElement)
-    // const listOfElements = this.getObjects(this.state.filesandfolders, 'id', this.state.itemID);    
-    // const newListOfElements = listOfElements[0].children.concat(ff)
+
+  };
+
+  //FILE upload block
+  handleFileUploadFormSubmit = (Form) => {
+    this.addNewFileElement(Form);
+  };
+
+  addNewFileElement = (Form) => {
+    console.log(Form)
+    const ff = Form;
     
-    // console.log(FolderForm;
-    // axios.post(API, {
-    //     id: ff.id,
+    ff.icon = 'file'
+    ff.title = Form.name;
+    ff.dateCreated= "2018-07-18";
+    ff.detailsLink='#'
+    ff.star=false
+    ff.deleted=false
+    ff.hasChildren=false
+    ff.children=[]
+
+    this.fileUpload(Form)
+        .then((response)=>{
+          ff.id = response.data.id
+          const newElement = [ff]
+          this.handleDriveExplorerItemClick(this.state.itemID, newElement)
+          // this.props.onFormSubmit(this.state.file)
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
+    // axios.post(API + CREATE_FOLDER, {
+    //     idTargetDirectory: this.state.itemID,
+    //     targetDirectory: this.state.breadcrumbs, // current or target directory
     //     icon: ff.icon,
-    //     title: ff.title,
-    //     dateCreated: ff.dateCreated,
-    //     detailsLink: '#',
+    //     directoryName: ff.title,
     //     star: false,
     //     deleted: false,
     // })
     // .then((response) => {
-    //   this.setState({      
-    //     newListElement: ff,
-    //     //filesandfolders: this.state.filesandfolders.concat(ff),
-    //   })
+    //   ff.id = response.data.id
+    //   const newElement = [ff]
+    //   this.handleDriveExplorerItemClick(this.state.itemID, newElement)
     // })
     // .catch(function (error){
     //   console.log(error);
     // })
+
+    
+    // this.setState(
+    //   {
+    //     id:this.state.id+1,
+    //   }
+    // )
+
   };
+
+  fileUpload(file){
+    const url = API + FILE_UPLOAD_URL;
+    const formData = new FormData();
+    formData.append('file',file)
+    const targetDirectory = JSON.stringify(this.state.breadcrumbs);
+    formData.append('idTargetDirectory', this.state.itemID)
+    formData.append('targetDirectory', targetDirectory) // current or target directory)
+    const config = {
+        headers: {
+          "Access-Control-Allow-Origin": '*',
+          'Content-Type': 'mutipart/form-data;',
+        },
+        onUploadProgress: (progressEvent) => {
+          let percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total )
+          console.log(percentCompleted)
+          this.setState({
+            uploadProgress:percentCompleted,
+            styles:{
+              width:percentCompleted+'%',
+            }
+          })
+        }
+    }       
+    return axios.post(url, formData, config)
+  }
 
   // UPDATE folder block
   handleUpdateFormSubmit = (FolderFormAtts) => {
@@ -297,7 +366,8 @@ console.log(response.data)
   driveExplorerItemClicked = (itemID, newElement) => {
 
             // get children for folder clicked 
-            //console.log(itemID)
+            console.log(itemID)
+            console.log(newElement)
             const itemIdInteger = parseInt(itemID,10) //id value is integer so it needs to be converted before
             let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
             let showMsg = true
@@ -349,7 +419,14 @@ console.log(response.data)
   render() {
     
     return (<div className="container">
-          <DriveHeader showMsgFolderCreated={this.state.showMsgFolderCreated} onFormSubmit={this.handleCreateFormSubmit} />
+          <DriveHeader 
+            showMsgFolderCreated={this.state.showMsgFolderCreated} 
+            onFileUploadFormSubmit={this.handleFileUploadFormSubmit} 
+            onFolderFormSubmit={this.handleCreateFolderFormSubmit}
+            uploadProgress={this.state.uploadProgress}
+            styles={this.state.styles}
+          />
+
           <Breadcrumbs breadcrumbs={this.state.breadcrumbs} appName="Drive" imageURL="assets/img/drive-icon.png"/> 
           <div className="row">
             <DriveSidebar 
