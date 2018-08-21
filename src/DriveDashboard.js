@@ -26,8 +26,10 @@ class DriveDashboard extends Component {
     this.state={
         filesandfolders:[],
         filesandfoldersFiltered:[],
-        breadcrumbs:[],
-        // newListElement:[],
+        breadcrumbs:{
+          id:[],
+          title:[]
+        },
         showMsgFolderCreated:false,
         optionClicked: 'drive',
         loading: true,
@@ -50,7 +52,10 @@ class DriveDashboard extends Component {
         filesandfolders: response.data,
         loading:false,
         itemID:response.data[0].id,
-        breadcrumbs:[response.data[0].title]
+        breadcrumbs:{
+          title:[response.data[0].title],
+          id:[response.data[0].id]
+        }
       })
     })
     .then(() => {
@@ -117,7 +122,7 @@ class DriveDashboard extends Component {
 
     axios.post(API + CREATE_FOLDER, {
         idTargetDirectory: this.state.itemID,
-        targetDirectory: this.state.breadcrumbs, // current or target directory
+        targetDirectory: this.state.breadcrumbs.title, // current or target directory
         icon: ff.icon,
         directoryName: ff.title,
         star: false,
@@ -201,7 +206,7 @@ class DriveDashboard extends Component {
     const url = API + FILE_UPLOAD_URL;
     const formData = new FormData();
     formData.append('file',file)
-    const targetDirectory = JSON.stringify(this.state.breadcrumbs);
+    const targetDirectory = JSON.stringify(this.state.breadcrumbs.title);
     formData.append('idTargetDirectory', this.state.itemID)
     formData.append('targetDirectory', targetDirectory) // current or target directory)
     const config = {
@@ -409,9 +414,46 @@ class DriveDashboard extends Component {
     this.setState({
       //optionClicked: 'folder',
       filesandfoldersFiltered:filesandfoldersfiltered,
-      breadcrumbs:this.state.breadcrumbs.concat(values[0].title),
+      breadcrumbs:{
+        title: this.state.breadcrumbs.title.concat(values[0].title),
+        id: this.state.breadcrumbs.id.concat(values[0].id)
+      },
+
       itemID:itemID,
     })
+
+}
+
+handleBreadcrumbClick = (breadcrumbId) =>{
+  this.clickBreadcrumbItem(breadcrumbId)
+}
+
+clickBreadcrumbItem = (itemID) => {
+
+  // get children for folder clicked 
+  const itemIdInteger = parseInt(itemID,10) 
+  let values = this.getObjects(this.state.filesandfolders, 'id',itemIdInteger);
+  let filesandfoldersfiltered =[];
+    
+  filesandfoldersfiltered = values[0].children
+ const indexToStartRemoving = this.state.breadcrumbs.id.indexOf(itemIdInteger) + 1
+  // console.log("index" + this.state.breadcrumbs.id.indexOf(itemIdInteger))
+
+  // console.log("value searched " + itemIdInteger)
+  this.state.breadcrumbs.id.splice(indexToStartRemoving)
+  this.state.breadcrumbs.title.splice(indexToStartRemoving)
+  // console.log(arrayBread)
+
+  this.setState({
+    //optionClicked: 'folder',
+    filesandfoldersFiltered:filesandfoldersfiltered,
+    breadcrumbs:{
+      title: this.state.breadcrumbs.title,
+      id: this.state.breadcrumbs.id,
+    },
+
+    itemID:itemID,
+  })
 
 }
   
@@ -427,7 +469,12 @@ class DriveDashboard extends Component {
             styles={this.state.styles}
           />
 
-          <Breadcrumbs breadcrumbs={this.state.breadcrumbs} appName="Drive" imageURL="assets/img/drive-icon.png"/> 
+          <Breadcrumbs 
+            breadcrumbs={this.state.breadcrumbs} 
+            appName="Drive" 
+            imageURL="assets/img/drive-icon.png"
+            onBreadcrumbClick={this.handleBreadcrumbClick}
+          /> 
           <div className="row">
             <DriveSidebar 
               onStarredOptionClick={this.handleStarredOptionClick}
