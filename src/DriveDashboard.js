@@ -372,10 +372,10 @@ class DriveDashboard extends Component {
 
             // get children for folder clicked 
             // console.log(newElement)
-            console.log('itemID')
-            console.log(itemID)
-            console.log('this.state.breadcrumbs')
-      console.log(this.state.breadcrumbs)
+      //       console.log('itemID')
+      //       console.log(itemID)
+      //       console.log('this.state.breadcrumbs')
+      // console.log(this.state.breadcrumbs)
       const itemIdInteger = parseInt(itemID,10) //id value is integer so it needs to be converted before
       let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
       // console.log(this.state.filesandfolders)
@@ -393,30 +393,19 @@ class DriveDashboard extends Component {
           showMsg=false
           filesandfoldersfiltered = values[0].children
       }
+      //fill breadcrumbs data
       let ids = []
       let titles = []
-      // console.log('pathIDs')
-      // console.log(pathIDs)
-      // console.log('pathIDs.id')
-      // console.log(pathIDs.id)
-      // console.log('pathIDs.title')
-      // console.log(pathIDs.title)
+      
       if (pathIDs!==undefined){
         ids = pathIDs.map((path) =>{
-          let ids_ = []
-          ids_.push(path.id)
-          return ids_
+          return path.id
         })
         titles = pathIDs.map((path) =>{
-          let titles_ =[]         
-          titles_.push(path.title)          
-          return titles_
+          return path.title
         })
-        // ids=ids.join()
-        // titles=titles.join()
-        // console.log(ids)
-        // console.log(titles)
       }
+
       this.setState({
         optionClicked: 'folder',
         filesandfoldersFiltered:filesandfoldersfiltered,
@@ -449,7 +438,6 @@ class DriveDashboard extends Component {
         title: this.state.breadcrumbs.title.concat(values[0].title),
         id: this.state.breadcrumbs.id.concat(values[0].id)
       },
-
       itemID:itemID,
     })
 
@@ -461,8 +449,6 @@ handleBreadcrumbClick = (breadcrumbId) =>{
 
 clickBreadcrumbItem = (itemID) => {
 
-  console.log('this.state.breadcrumbs.id')
-      console.log(this.state.breadcrumbs)
   // get children for folder clicked 
   const itemIdInteger = parseInt(itemID,10) 
   let values = this.getObjects(this.state.filesandfolders, 'id',itemIdInteger);
@@ -475,7 +461,6 @@ clickBreadcrumbItem = (itemID) => {
   // console.log("value searched " + itemIdInteger)
   this.state.breadcrumbs.id.splice(indexToStartRemoving)
   this.state.breadcrumbs.title.splice(indexToStartRemoving)
-  // console.log(arrayBread)
 
   this.setState({
     // optionClicked: 'folder',
@@ -484,7 +469,6 @@ clickBreadcrumbItem = (itemID) => {
       title: this.state.breadcrumbs.title,
       id: this.state.breadcrumbs.id,
     },
-
     itemID:itemID,
   })
 

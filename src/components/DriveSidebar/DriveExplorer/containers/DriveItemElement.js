@@ -12,12 +12,6 @@ class DriveItemElement extends Component{
     }
     
     handleDriveExplorerItemClick = (e) => {
-        // console.log("..." + this.props.id)
-        // console.log('this.props.path')
-        // console.log(this.props.path)
-        // const pathURL = this.props.path.title
-        // const pathIDs = this.props.path.id
-
         this.props.onItemClick(this.props.id, undefined,this.props.path) // undefined newelement
         this.driveExplorerItemActive(e)
     }

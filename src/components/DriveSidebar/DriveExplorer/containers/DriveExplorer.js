@@ -10,40 +10,23 @@ class DriveExplorer extends Component{
         let path = []
         let childPath =[]
         let pathItem={
-            // id:[],
+            id:[],
             title:[]
         }
         let pathChildItem={
-            // id:[],
+            id:[],
             title:[]
         }
         
-        // console.log("parents->" )
-        // console.log( parents)
         const elements = items.map((item) => {
-            // pathItem['id'] = item.id
-            // pathItem['title'] = item.title
             pathItem.id = item.id
             pathItem.title = item.title
-            // console.log('pathItem')
-            // console.log(pathItem)
-            // console.log('parents')
-            // console.log(parents)
             if (parents===undefined){                
                 path=path.concat(pathItem)
-                // path = pathItem
             }else{
                path=path.concat(parents,pathItem)
             }
-            // console.log('path')
-            // console.log(path)
-            
-            // if (parents===undefined){                
-            //     path = path.concat( item.title)
-            // }else{
-            //     path = path.concat(parents,  item.title)
-            // }
-                
+                            
             result = []
             childPath = []
             //checking if item has children     
@@ -55,19 +38,12 @@ class DriveExplorer extends Component{
                         pathChildItem={
                             id:[],
                             title:[]
-                        }
-                           
+                        }                           
                         childPath=[] 
-                        // pathChildItem['id'] = child.id
-                        // pathChildItem['title'] = child.title   
                         pathChildItem.id = child.id
                         pathChildItem.title = child.title   
 
-                        // childPath=childPath.concat(path, {title:child.title, id:child.id})
                         childPath=childPath.concat(path, pathChildItem)
-                        // path.push(pathChildItem)
-                        // console.log('path')
-                        // console.log(path[0])
 
                         if (child.hasChildren){ 
                             const childElementsFiltered = child.children.filter(ff => ff.icon === 'folder')
