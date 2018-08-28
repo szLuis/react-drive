@@ -3,13 +3,14 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/theme.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar, faClock, faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import DriveSidebar from './components/DriveSidebar/DriveSidebar';
 import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
 import axios from 'axios';
 import Breadcrumbs from './components/DriveHeader/containers/Breadcrumbs';
-library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight );
+import SortHeaderList from './components/FilesFoldersList/ListView/containers/SortHeaderList'
+library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp );
 
 //const API ="https://drive-js-server.herokuapp.com/filesfolders/";
 // const API ="http://localhost:3001/filesfolders";
@@ -490,6 +491,8 @@ clickBreadcrumbItem = (itemID) => {
               optionActivated={this.state.optionActivated}
               
             />
+            <div className="col-md-9">
+            <SortHeaderList/>
             <FilesFoldersList 
               optionClicked={this.state.optionClicked}
               onListElementStar={this.handleListElementStar} 
@@ -502,6 +505,7 @@ clickBreadcrumbItem = (itemID) => {
               onAddElementToFilesAndFolders={this.handleAddElementToFilesAndFolders}
               onDoubleClickListElement={this.handleDoubleClickListElement}
             />
+            </div>
           </div>
       </div>
     );

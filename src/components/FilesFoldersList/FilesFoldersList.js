@@ -26,19 +26,19 @@ class FilesFoldersList extends Component{
 
         if (this.props.loading){
             return (
-                <div className="col-md-9">
+                <div className="col-md-12">
                     <div className="p-3 mb-2 bg-white text-dark font-italic">Loading...</div>
                 </div>
             )
         }else if (totalListElements ===0){
             return (
-                <div className="col-md-9">
+                <div className="col-md-12">
                     <div className="p-3 mb-2 bg-white text-dark font-italic">No elements in the list, add one</div>
                 </div>
             )
         }else{
             return (
-                <div className="col-md-9">
+                <div className="col-md-12">
                     <ul className="list list-group list-attrs">
                         {listElementComponents}
                     </ul>
