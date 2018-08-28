@@ -3,13 +3,14 @@
     <div class="card-block">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li  rt-repeat="breadcrumb in this.props.breadcrumbs.title" class="breadcrumb-item {this.props.breadcrumbs.title.length === 1 ? ' active' : ''} " aria-current="page" >
+                <li  rt-repeat="breadcrumb in this.props.breadcrumbs.title" key="li-{this.props.breadcrumbs.id[breadcrumbIndex]}"  class="breadcrumb-item {this.props.breadcrumbs.title.length === 1 ? ' active' : ''} " aria-current="page" >
                     <a 
-                        href="#" 
+                        href="javascript:void(0)" 
                         rt-if="breadcrumbIndex + 1 < this.props.breadcrumbs.title.length " 
                         key={this.props.breadcrumbs.id[breadcrumbIndex]} 
-                        id={this.props.breadcrumbs.id[breadcrumbIndex]}
+                        id={this.props.breadcrumbs.id[breadcrumbIndex]} 
                         onClick={this.handleBreadcrumbClick}
+                        
                         >
                         {breadcrumb}
                     </a>

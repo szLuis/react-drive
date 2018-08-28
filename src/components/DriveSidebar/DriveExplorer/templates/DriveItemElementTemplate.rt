@@ -3,7 +3,7 @@
 
 <FontAwesomeIcon key="caret-{this.props.id}" id="caret-{this.props.id}"  class="{this.props.optionActivated===this.props.id ? 'drive-explorer-item-active' : ''}" onClick={this.handleCaretClick} style="position: inherit; margin-left:-10px; " icon="{this.state.isOpen === true ? 'caret-down' : 'caret-right' }" />
 <FontAwesomeIcon style="position: inherit; margin-left:10px" icon="folder" class="{this.props.optionActivated===this.props.id ? 'drive-explorer-item-active' : ''}" /> 
-<span id="{this.props.id}"  style="margin-left: 3px;  " class="{this.props.optionActivated===this.props.id ? 'drive-explorer-item-active' : ''}" onClick={this.handleDriveExplorerItemClick} >
+<span  id="{this.props.id}"  style="margin-left: 3px;  " class="{this.props.optionActivated===this.props.id ? 'drive-explorer-item-active' : ''}" onClick={this.handleDriveExplorerItemClick} >
     {this.props.title}
 </span>
 <ul class="list-group {this.state.isOpen ? '' : 'hidden' }">

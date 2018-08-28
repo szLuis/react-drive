@@ -354,48 +354,79 @@ class DriveDashboard extends Component {
     })
   }
 
-  handleDriveExplorerItemClick = (itemID, newElement) => {
+  handleDriveExplorerItemClick = (itemID, newElement, pathIDs) => {
     //const values = this.getObjects(this.state.filesandfolders, 'id', itemID)
     //console.log(values[0].children)
     // this.setState({
     //   optionClicked: 'folder',
     //   itemID:itemID,
     // })
-    this.driveExplorerItemClicked(itemID, newElement)
+    this.driveExplorerItemClicked(itemID, newElement, pathIDs)
     //if (typeof values == 'object') {
     // this.setState({
     //   filesandfolders:values[0].children
     // })
   }
 
-  driveExplorerItemClicked = (itemID, newElement) => {
+  driveExplorerItemClicked = (itemID, newElement, pathIDs) => {
 
             // get children for folder clicked 
+            // console.log(newElement)
+            console.log('itemID')
             console.log(itemID)
-            console.log(newElement)
-            const itemIdInteger = parseInt(itemID,10) //id value is integer so it needs to be converted before
-            let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
-            let showMsg = true
-            let filesandfoldersfiltered =[];
-            
-              if (newElement !== undefined  && values[0].hasChildren){
-                values[0].children =values[0].children.concat(newElement)
-                filesandfoldersfiltered = values[0].children
-            }else if (newElement !== undefined  && !values[0].hasChildren){
-                values[0].hasChildren=true;
-                values[0].children = newElement
-                filesandfoldersfiltered = values[0].children
-            }else{
-                showMsg=false
-                filesandfoldersfiltered = values[0].children
-            }
-        
-        this.setState({
-          optionClicked: 'folder',
-          filesandfoldersFiltered:filesandfoldersfiltered,
-          showMsgFolderCreated:showMsg,
-          itemID:itemID,
+            console.log('this.state.breadcrumbs')
+      console.log(this.state.breadcrumbs)
+      const itemIdInteger = parseInt(itemID,10) //id value is integer so it needs to be converted before
+      let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
+      // console.log(this.state.filesandfolders)
+      let showMsg = true
+      let filesandfoldersfiltered =[];
+      
+        if (newElement !== undefined  && values[0].hasChildren){
+          values[0].children =values[0].children.concat(newElement)
+          filesandfoldersfiltered = values[0].children
+      }else if (newElement !== undefined  && !values[0].hasChildren){
+          values[0].hasChildren=true;
+          values[0].children = newElement
+          filesandfoldersfiltered = values[0].children
+      }else{
+          showMsg=false
+          filesandfoldersfiltered = values[0].children
+      }
+      let ids = []
+      let titles = []
+      // console.log('pathIDs')
+      // console.log(pathIDs)
+      // console.log('pathIDs.id')
+      // console.log(pathIDs.id)
+      // console.log('pathIDs.title')
+      // console.log(pathIDs.title)
+      if (pathIDs!==undefined){
+        ids = pathIDs.map((path) =>{
+          let ids_ = []
+          ids_.push(path.id)
+          return ids_
         })
+        titles = pathIDs.map((path) =>{
+          let titles_ =[]         
+          titles_.push(path.title)          
+          return titles_
+        })
+        // ids=ids.join()
+        // titles=titles.join()
+        // console.log(ids)
+        // console.log(titles)
+      }
+      this.setState({
+        optionClicked: 'folder',
+        filesandfoldersFiltered:filesandfoldersfiltered,
+        breadcrumbs:{
+          title: titles,
+          id: ids,
+        },
+        showMsgFolderCreated:showMsg,
+        itemID:itemID,
+      })
         
   }
 
@@ -430,13 +461,15 @@ handleBreadcrumbClick = (breadcrumbId) =>{
 
 clickBreadcrumbItem = (itemID) => {
 
+  console.log('this.state.breadcrumbs.id')
+      console.log(this.state.breadcrumbs)
   // get children for folder clicked 
   const itemIdInteger = parseInt(itemID,10) 
   let values = this.getObjects(this.state.filesandfolders, 'id',itemIdInteger);
   let filesandfoldersfiltered =[];
     
   filesandfoldersfiltered = values[0].children
- const indexToStartRemoving = this.state.breadcrumbs.id.indexOf(itemIdInteger) + 1
+  const indexToStartRemoving = this.state.breadcrumbs.id.indexOf(itemIdInteger) + 1
   // console.log("index" + this.state.breadcrumbs.id.indexOf(itemIdInteger))
 
   // console.log("value searched " + itemIdInteger)
@@ -445,7 +478,7 @@ clickBreadcrumbItem = (itemID) => {
   // console.log(arrayBread)
 
   this.setState({
-    //optionClicked: 'folder',
+    // optionClicked: 'folder',
     filesandfoldersFiltered:filesandfoldersfiltered,
     breadcrumbs:{
       title: this.state.breadcrumbs.title,
