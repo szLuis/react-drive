@@ -17,7 +17,7 @@ class DriveItemElement extends Component{
     }
 
     driveExplorerItemActive = (e) => {
-        this.props.onOptionClick(e)
+        //this.props.onOptionClick(e)
     }
 
     handleCaretClick = (e) => {

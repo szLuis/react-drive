@@ -32,6 +32,7 @@ class DriveDashboard extends Component {
         },
         showMsgFolderCreated:false,
         optionClicked: 'drive',
+        optionActivated: 'mydrive',
         loading: true,
         itemID: '',
         uploadProgress:0,          
@@ -355,30 +356,13 @@ class DriveDashboard extends Component {
   }
 
   handleDriveExplorerItemClick = (itemID, newElement, pathIDs) => {
-    //const values = this.getObjects(this.state.filesandfolders, 'id', itemID)
-    //console.log(values[0].children)
-    // this.setState({
-    //   optionClicked: 'folder',
-    //   itemID:itemID,
-    // })
     this.driveExplorerItemClicked(itemID, newElement, pathIDs)
-    //if (typeof values == 'object') {
-    // this.setState({
-    //   filesandfolders:values[0].children
-    // })
   }
 
   driveExplorerItemClicked = (itemID, newElement, pathIDs) => {
 
-            // get children for folder clicked 
-            // console.log(newElement)
-      //       console.log('itemID')
-      //       console.log(itemID)
-      //       console.log('this.state.breadcrumbs')
-      // console.log(this.state.breadcrumbs)
       const itemIdInteger = parseInt(itemID,10) //id value is integer so it needs to be converted before
       let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
-      // console.log(this.state.filesandfolders)
       let showMsg = true
       let filesandfoldersfiltered =[];
       
@@ -413,6 +397,7 @@ class DriveDashboard extends Component {
           title: titles,
           id: ids,
         },
+        optionActivated:itemID,
         showMsgFolderCreated:showMsg,
         itemID:itemID,
       })
@@ -434,10 +419,12 @@ class DriveDashboard extends Component {
     this.setState({
       //optionClicked: 'folder',
       filesandfoldersFiltered:filesandfoldersfiltered,
+      optionActivated:itemID.toString() ,
       breadcrumbs:{
         title: this.state.breadcrumbs.title.concat(values[0].title),
         id: this.state.breadcrumbs.id.concat(values[0].id)
       },
+      
       itemID:itemID,
     })
 
@@ -469,6 +456,7 @@ clickBreadcrumbItem = (itemID) => {
       title: this.state.breadcrumbs.title,
       id: this.state.breadcrumbs.id,
     },
+    optionActivated:itemID,
     itemID:itemID,
   })
 
@@ -499,6 +487,7 @@ clickBreadcrumbItem = (itemID) => {
               onTrashOptionClick={this.handleTrashOptionClick}
               onDriveExplorerItemClick={this.handleDriveExplorerItemClick}
               filesandfolders={this.state.filesandfolders}
+              optionActivated={this.state.optionActivated}
               
             />
             <FilesFoldersList 
