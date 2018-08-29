@@ -462,7 +462,28 @@ clickBreadcrumbItem = (itemID) => {
   })
 
 }
+
+handleSortNameHeaderClick = (direction) => {
+  this.clickSortNameHeader(direction)
+}
+
+clickSortNameHeader = (direction) => {
   
+  let filesAndFoldersSorted = this.state.filesandfoldersFiltered.sort(this.compare)
+  filesAndFoldersSorted=direction?filesAndFoldersSorted:filesAndFoldersSorted.reverse()
+  this.setState({
+    filesandfoldersFiltered:filesAndFoldersSorted
+  })
+}
+  
+compare = (a,b) => {
+  if (a.title < b.title)
+    return -1
+  else if (a.title > b.title)
+    return 1
+  else
+    return 0
+}
 
   render() {
     
@@ -492,7 +513,7 @@ clickBreadcrumbItem = (itemID) => {
               
             />
             <div className="col-md-9">
-            <SortHeaderList/>
+            <SortHeaderList onSortNameHeaderClick={this.handleSortNameHeaderClick} />
             <FilesFoldersList 
               optionClicked={this.state.optionClicked}
               onListElementStar={this.handleListElementStar} 
