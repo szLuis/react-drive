@@ -5,26 +5,26 @@ import DriveExplorer from './DriveExplorer/containers/DriveExplorer';
 
 
 class DriveSidebar extends Component{
-    constructor(props){
-        super(props)
+    // constructor(props){
+    //     super(props)
 
-        // this.state = {
-        //     optionActivated: 'mydrive',
-        // }
-        // this.handleSidebarOptionClick = this.handleSidebarOptionClick.bind(this)
-        // this.sidebarOptionClicked = this.sidebarOptionClicked.bind(this)
-    }
+    //     // this.state = {
+    //     //     optionActivated: 'mydrive',
+    //     // }
+    //     // this.handleSidebarOptionClick = this.handleSidebarOptionClick.bind(this)
+    //     // this.sidebarOptionClicked = this.sidebarOptionClicked.bind(this)
+    // }
 
-    // handleSidebarOptionClick = ( (option) =>{
-    //     this.sidebarOptionClicked(option)
-    // })
+    // // handleSidebarOptionClick = ( (option) =>{
+    // //     this.sidebarOptionClicked(option)
+    // // })
 
-    // sidebarOptionClicked = ( (option) => {        
-    //     // this.setState({
-    //     //     optionActivated:option.target.id,
-    //     // })
-    //     this.props.optionActivated(option.target.id)
-    // })
+    // // sidebarOptionClicked = ( (option) => {        
+    // //     // this.setState({
+    // //     //     optionActivated:option.target.id,
+    // //     // })
+    // //     this.props.optionActivated(option.target.id)
+    // // })
 
     render() {
         return (

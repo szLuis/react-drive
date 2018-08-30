@@ -28,14 +28,14 @@ class DriveDashboard extends Component {
         filesandfolders:[],
         filesandfoldersFiltered:[],
         breadcrumbs:{
-          id:[],
-          title:[]
+          id:'',
+          title:''
         },
         showMsgFolderCreated:false,
-        optionClicked: 'drive',
-        optionActivated: 'mydrive',
+        optionClicked: 'folder',
+        optionActivated: "0",
         loading: true,
-        itemID: '',
+        itemID: "0",
         uploadProgress:0,          
           styles:{
             width:'0%',
@@ -53,7 +53,7 @@ class DriveDashboard extends Component {
       {        
         filesandfolders: response.data,
         loading:false,
-        itemID:response.data[0].id,
+        itemID:response.data[0].id.toString(),
         breadcrumbs:{
           title:[response.data[0].title],
           id:[response.data[0].id]
@@ -73,7 +73,12 @@ class DriveDashboard extends Component {
   }
 
   showItemsOfRootFolder(){
-    this.driveExplorerItemClicked(this.state.itemID)
+    const itemIdInteger = parseInt(0,10) //id value is integer so it needs to be converted before
+    let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
+    let filesandfoldersfiltered =values[0].children;
+    this.setState({
+      filesandfoldersFiltered:filesandfoldersfiltered,
+    })
   }
   //return an array of objects according to key, value, or key and value matching
   getObjects(obj, key, val) {
@@ -133,7 +138,8 @@ class DriveDashboard extends Component {
     .then((response) => {
       ff.id = response.data.id
       const newElement = [ff]
-      this.handleDriveExplorerItemClick(this.state.itemID, newElement)
+      this.handleDriveExplorerItemClick(this.state.itemID, newElement, undefined)
+      setTimeout(this.changeFolderMessageState,5000)
     })
     .catch(function (error){
       console.log(error);
@@ -147,6 +153,12 @@ class DriveDashboard extends Component {
     )
 
   };
+
+  changeFolderMessageState = () => {
+    this.setState({
+      showMsgFolderCreated:false
+    })
+  }
 
   //FILE upload block
   handleFileUploadFormSubmit = (Form) => {
@@ -170,7 +182,7 @@ class DriveDashboard extends Component {
         .then((response)=>{
           ff.id = response.data.id
           const newElement = [ff]
-          this.handleDriveExplorerItemClick(this.state.itemID, newElement)
+          this.handleDriveExplorerItemClick(this.state.itemID, newElement, this.state.breadcrumbs)
           // this.props.onFormSubmit(this.state.file)
           // console.log(response.data);
         })
@@ -317,12 +329,26 @@ class DriveDashboard extends Component {
     
   }
 
-  // CLICK event handlers for drive side bar
-  handleStarredOptionClick = () => {
-     //
-    const elementsFiltered = this.state.filesandfolders.filter(ff => ff.star === true && ff.deleted===false)
+
+  // CLICK event handler for Starred Option of drive side bar component
+  handleStarredOptionClick = (id) => {
+    let filesAndFoldersStarred = this.getObjects(this.state.filesandfolders, 'star', true);
+    const elementsFiltered = filesAndFoldersStarred.filter(ff => ff.deleted===false)
     this.setState({
       optionClicked: 'starred',
+      optionActivated:id,
+      filesandfoldersFiltered : elementsFiltered
+    })
+  }  
+  
+  // CLICK event handler for Recents Option of drive side bar component
+  handleRecentsOptionClick = (id) => {
+    const dateDaysAgo = this.getDateDaysAgo(5)
+    console.log(dateDaysAgo)
+    const elementsFiltered= this.state.filesandfolders.filter(ff => Date.parse(ff.dateCreated) >= dateDaysAgo && ff.deleted===false);
+    this.setState({   
+      optionClicked: 'recents',
+      optionActivated:id,
       filesandfoldersFiltered : elementsFiltered
     })
   }
@@ -338,20 +364,13 @@ class DriveDashboard extends Component {
     return dateDaysAgo
   }
 
-  handleRecentsOptionClick = () => {
-    const dateDaysAgo = this.getDateDaysAgo(5)
-    console.log(dateDaysAgo)
-    const elementsFiltered= this.state.filesandfolders.filter(ff => Date.parse(ff.dateCreated) >= dateDaysAgo && ff.deleted===false);
-    this.setState({   
-      optionClicked: 'recents',
-      filesandfoldersFiltered : elementsFiltered
-    })
-  }
-
-  handleTrashOptionClick = () => {
-    const elementsFiltered = this.state.filesandfolders.filter(ff => ff.deleted === true );
+  // CLICK event handler for Trash Option of drive side bar component
+  handleTrashOptionClick = (id) => {
+    let elementsFiltered = this.getObjects(this.state.filesandfolders, 'deleted', true);
+    // const elementsFiltered = this.state.filesandfolders.filter(ff => ff.deleted === true );
     this.setState({
       optionClicked: 'trash',
+      optionActivated:id,
       filesandfoldersFiltered : elementsFiltered
     })
   }
@@ -361,13 +380,12 @@ class DriveDashboard extends Component {
   }
 
   driveExplorerItemClicked = (itemID, newElement, pathIDs) => {
-
       const itemIdInteger = parseInt(itemID,10) //id value is integer so it needs to be converted before
       let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
       let showMsg = true
       let filesandfoldersfiltered =[];
       
-        if (newElement !== undefined  && values[0].hasChildren){
+      if (newElement !== undefined  && values[0].hasChildren){
           values[0].children =values[0].children.concat(newElement)
           filesandfoldersfiltered = values[0].children
       }else if (newElement !== undefined  && !values[0].hasChildren){
@@ -379,9 +397,10 @@ class DriveDashboard extends Component {
           filesandfoldersfiltered = values[0].children
       }
       //fill breadcrumbs data
+      console.log(pathIDs)
+      console.log('pathIDs')
       let ids = []
       let titles = []
-      
       if (pathIDs!==undefined){
         ids = pathIDs.map((path) =>{
           return path.id
@@ -389,6 +408,9 @@ class DriveDashboard extends Component {
         titles = pathIDs.map((path) =>{
           return path.title
         })
+      }else{
+        ids= this.state.breadcrumbs.id
+        titles= this.state.breadcrumbs.title
       }
 
       this.setState({
@@ -398,9 +420,9 @@ class DriveDashboard extends Component {
           title: titles,
           id: ids,
         },
-        optionActivated:itemID,
+        optionActivated:itemID.toString(),
         showMsgFolderCreated:showMsg,
-        itemID:itemID,
+        itemID:itemID.toString(),
       })
         
   }

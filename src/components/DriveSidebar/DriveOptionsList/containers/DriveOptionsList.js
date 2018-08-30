@@ -2,35 +2,17 @@ import { Component } from 'react';
 import DriveOptionsListTemplate from '../templates/DriveOptionsListTemplate.rt'
 
 class DriveOptionsList extends Component{
-    constructor(props){
-        super(props);
-
-        // this.state = {
-        //     optionActivated: '',
-        // }
-    }
-
+    
     handleStarClick = (e) => {
-        this.props.onStarredOptionClick();
-        this.activeOption(e);
-        
+        this.props.onStarredOptionClick(e.target.id);
     }
 
     handleRecentsClick = (e) => {
-        this.props.onRecentsOptionClick();
-        this.activeOption(e);        
+        this.props.onRecentsOptionClick(e.target.id);
     }
 
     handleTrashClick = (e) => {
-        this.props.onTrashOptionClick();
-        this.activeOption(e);        
-    }
-
-    activeOption = (e) => {
-        this.props.onOptionClick(e)
-        // this.setState({
-        //     optionActivated : e.target.id,
-        // })
+        this.props.onTrashOptionClick(e.target.id);
     }
 
     render(){

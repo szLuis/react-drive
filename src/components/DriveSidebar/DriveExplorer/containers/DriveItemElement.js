@@ -13,11 +13,6 @@ class DriveItemElement extends Component{
     
     handleDriveExplorerItemClick = (e) => {
         this.props.onItemClick(this.props.id, undefined,this.props.path) // undefined newelement
-        this.driveExplorerItemActive(e)
-    }
-
-    driveExplorerItemActive = (e) => {
-        //this.props.onOptionClick(e)
     }
 
     handleCaretClick = (e) => {
