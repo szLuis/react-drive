@@ -13,10 +13,11 @@ import SortHeaderList from './components/FilesFoldersList/ListView/containers/So
 import moment from 'moment'
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp );
 
-const API ="https://drive-js-server.herokuapp.com/filesfolders/";
+const API ="https://drive-js-server.herokuapp.com/";
 // const API ="http://localhost:3001/filesfolders";
 // const API ="http://127.0.0.1:8000/"
-const FILE_DIRECTORY = "filedirectory/"
+// const FILE_DIRECTORY = "filedirectory/"
+const FILE_DIRECTORY = "filesfolders/"
 const CREATE_FOLDER = "createdirectory/"
 const FILE_UPLOAD_URL ="uploadfile/";
 //const API ="http://192.168.43.208:3001/filesfolders";
