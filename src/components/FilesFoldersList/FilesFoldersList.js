@@ -13,7 +13,7 @@ class FilesFoldersList extends Component{
                 id={filefolder.id}
                 icon={filefolder.icon}
                 title={filefolder.title}
-                dateCreated={filefolder.dateCreated['date']}
+                dateCreated={filefolder.dateCreated}
                 details={filefolder.details}
                 star={filefolder.star}
                 onDoubleClick={this.props.onDoubleClickListElement}

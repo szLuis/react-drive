@@ -10,11 +10,12 @@ import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
 import axios from 'axios';
 import Breadcrumbs from './components/DriveHeader/containers/Breadcrumbs';
 import SortHeaderList from './components/FilesFoldersList/ListView/containers/SortHeaderList'
+import moment from 'moment'
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp );
 
-//const API ="https://drive-js-server.herokuapp.com/filesfolders/";
+const API ="https://drive-js-server.herokuapp.com/filesfolders/";
 // const API ="http://localhost:3001/filesfolders";
-const API ="http://127.0.0.1:8000/"
+// const API ="http://127.0.0.1:8000/"
 const FILE_DIRECTORY = "filedirectory/"
 const CREATE_FOLDER = "createdirectory/"
 const FILE_UPLOAD_URL ="uploadfile/";
@@ -47,6 +48,7 @@ class DriveDashboard extends Component {
   }
 
   componentDidMount(){
+    
     axios.get(API+FILE_DIRECTORY)
     .then( (response) => {   
       this.setState(
@@ -61,6 +63,7 @@ class DriveDashboard extends Component {
       })
     })
     .then(() => {
+      console.log(this.state.filesandfolders)
       this.showItemsOfRootFolder()
     })
     .catch( (error) => {
@@ -99,6 +102,27 @@ class DriveDashboard extends Component {
         }
     }
     return objects;
+}
+
+//return an array of date objects according to key, value, or key and value matching
+getObjectsDate(obj, key, val) {
+  var objects = [];
+  for (var i in obj) {    
+      if (!obj.hasOwnProperty(i)) continue;
+      if (typeof obj[i] === 'object') {
+          objects = objects.concat(this.getObjectsDate(obj[i], key, val));    
+      } else 
+      //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
+      if ((i === key && obj[i] >= val) || (i === key && val === '')) { //
+          objects.push(obj);
+      } else if (obj[i] >= val && key === ''){
+          //only add if the object is not already in the array
+          if (objects.lastIndexOf(obj) === -1){
+              objects.push(obj);
+          }
+      }
+  }
+  return objects;
 }
 
   handleAddElementToFilesAndFolders = (newList) => {
@@ -182,7 +206,7 @@ class DriveDashboard extends Component {
         .then((response)=>{
           ff.id = response.data.id
           const newElement = [ff]
-          this.handleDriveExplorerItemClick(this.state.itemID, newElement, this.state.breadcrumbs)
+          this.handleDriveExplorerItemClick(this.state.itemID, newElement, undefined)
           // this.props.onFormSubmit(this.state.file)
           // console.log(response.data);
         })
@@ -343,27 +367,19 @@ class DriveDashboard extends Component {
   
   // CLICK event handler for Recents Option of drive side bar component
   handleRecentsOptionClick = (id) => {
-    const dateDaysAgo = this.getDateDaysAgo(5)
-    console.log(dateDaysAgo)
-    const elementsFiltered= this.state.filesandfolders.filter(ff => Date.parse(ff.dateCreated) >= dateDaysAgo && ff.deleted===false);
+    let dateDaysAgo = moment().subtract(60, 'days').calendar()
+    dateDaysAgo = new Date(dateDaysAgo)
+    dateDaysAgo=moment(dateDaysAgo).format("YYYY-MM-DD")
+
+    let filesAndFoldersRecents = this.getObjectsDate(this.state.filesandfolders, 'dateCreated', dateDaysAgo);
+    const elementsFiltered= filesAndFoldersRecents.filter(ff => ff.deleted===false);
     this.setState({   
       optionClicked: 'recents',
       optionActivated:id,
       filesandfoldersFiltered : elementsFiltered
     })
   }
-
-  getDateDaysAgo = (days) => {
-    const d = new Date();
-    const mes = d.getMonth() - 3 ;
-    const dia = d.getDate() - days;
-    console.log(dia)
-    const daysBack = d.getFullYear() + '-' + mes + '-' + dia;
-    const dateDaysAgo = Date.parse(daysBack);
-    
-    return dateDaysAgo
-  }
-
+  
   // CLICK event handler for Trash Option of drive side bar component
   handleTrashOptionClick = (id) => {
     let elementsFiltered = this.getObjects(this.state.filesandfolders, 'deleted', true);
