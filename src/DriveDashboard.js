@@ -509,7 +509,8 @@ clickBreadcrumbItem = (itemID) => {
   })
 
 }
-
+//SORT header component block
+//sort by name
 handleSortNameHeaderClick = (direction) => {
   this.clickSortNameHeader(direction)
 }
@@ -530,6 +531,26 @@ compare = (a,b) => {
     return 1
   else
     return 0
+}
+
+//sort by date
+handleSortDateHeaderClick = (direction) => {
+  this.clickSortDateHeader(direction)
+}
+
+clickSortDateHeader = (direction) => {
+  
+  let filesAndFoldersSorted = this.state.filesandfoldersFiltered.sort(this.compareDate)
+  filesAndFoldersSorted=direction?filesAndFoldersSorted:filesAndFoldersSorted.reverse()
+  this.setState({
+    filesandfoldersFiltered:filesAndFoldersSorted
+  })
+}
+  
+compareDate = (a,b) => {
+  const dateA = new Date(a.dateCreated)
+  const dateB = new Date(b.dateCreated)
+  return dateA - dateB
 }
 
 handleOnSearchBoxChange = (e) => {
@@ -579,7 +600,10 @@ handleOnSearchBoxChange = (e) => {
               
             />
             <div className="col-md-9">
-            <SortHeaderList onSortNameHeaderClick={this.handleSortNameHeaderClick} />
+            <SortHeaderList 
+              onSortNameHeaderClick={this.handleSortNameHeaderClick} 
+              onSortDateHeaderClick={this.handleSortDateHeaderClick}
+            />
             <FilesFoldersList 
               optionClicked={this.state.optionClicked}
               onListElementStar={this.handleListElementStar} 
