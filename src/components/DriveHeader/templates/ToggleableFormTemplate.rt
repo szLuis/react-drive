@@ -7,7 +7,7 @@
     <div class="card-block">
         <div class="appbreadcrumb-container">
             <div class="left-content content">
-                <SearchBox />
+                <SearchBox onSearchBoxChange={this.props.onSearchBoxChange} />
             </div>
             <div class="right-content content">
                 <button id="filebtn" class="btn btn-icon btn-success " type="button" onClick={this.toggleFileUploadForm}>

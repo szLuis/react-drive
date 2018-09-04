@@ -11,6 +11,7 @@ class DriveHeader extends Component{
                             showMsgFolderCreated={this.props.showMsgFolderCreated} 
                             onFileUploadFormSubmit={this.props.onFileUploadFormSubmit} 
                             onFolderFormSubmit={this.props.onFolderFormSubmit} 
+                            onSearchBoxChange={this.props.onSearchBoxChange}
                             uploadProgress={this.props.uploadProgress}
                             styles={this.props.styles}
                         />

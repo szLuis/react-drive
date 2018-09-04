@@ -55,7 +55,7 @@ class DriveDashboard extends Component {
       const itemIdInteger = parseInt(0,10) //id value is integer so it needs to be converted before
       let values = this.getObjects(response.data, 'id', itemIdInteger);
       let filesandfoldersfiltered =values[0].children;
-      console.log('from didmount')
+      // console.log('from didmount')
       this.setState(
       {        
         filesandfolders: response.data,
@@ -421,8 +421,8 @@ getObjectsDate(obj, key, val) {
           filesandfoldersfiltered = values[0].children
       }
       //fill breadcrumbs data
-      console.log(pathIDs)
-      console.log('pathIDs.length')
+      // console.log(pathIDs)
+      // console.log('pathIDs.length')
 
       let ids = []
       let titles = []
@@ -532,6 +532,24 @@ compare = (a,b) => {
     return 0
 }
 
+handleOnSearchBoxChange = (e) => {
+  // get children for folder clicked 
+  let values = this.getObjects(this.state.filesandfolders, 'title',e.target.value);
+  let filesandfoldersfiltered =[];
+  console.log(values)
+  if (values.length > 0)
+    filesandfoldersfiltered = values
+
+  if (filesandfoldersfiltered!==undefined)
+  {
+    this.setState({
+      filesandfoldersFiltered:filesandfoldersfiltered,
+    })
+  }
+   
+  console.log(e.target.value)
+}
+
   render() {
     
     return (<div className="container">
@@ -539,6 +557,7 @@ compare = (a,b) => {
             showMsgFolderCreated={this.state.showMsgFolderCreated} 
             onFileUploadFormSubmit={this.handleFileUploadFormSubmit} 
             onFolderFormSubmit={this.handleCreateFolderFormSubmit}
+            onSearchBoxChange={this.handleOnSearchBoxChange}
             uploadProgress={this.state.uploadProgress}
             styles={this.state.styles}
           />
