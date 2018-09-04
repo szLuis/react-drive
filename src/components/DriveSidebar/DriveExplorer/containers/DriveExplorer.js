@@ -19,38 +19,42 @@ class DriveExplorer extends Component{
         }
         
         const elements = items.map((item) => {
+            path = []
+            pathItem={
+                id:[],
+                title:[]
+            }
             pathItem.id = item.id
             pathItem.title = item.title
+            
             if (parents===undefined){                
                 path=path.concat(pathItem)
             }else{
                path=path.concat(parents,pathItem)
             }
-                            
             result = []
-            childPath = []
-            //checking if item has children     
+            
             if (item.hasChildren){   
                 
-                
+                 
                 let childrenElementsFiltered = item.children.filter(ff => ff.icon === 'folder')
                     childrenElementsFiltered.map((child) => {
                         pathChildItem={
                             id:[],
                             title:[]
-                        }                           
-                        childPath=[] 
+                        }                      
+                                                
                         pathChildItem.id = child.id
-                        pathChildItem.title = child.title   
-
+                        pathChildItem.title = child.title  
+                         
+                        childPath=[] 
                         childPath=childPath.concat(path, pathChildItem)
-
+                        
+                        // 
                         if (child.hasChildren){ 
                             const childElementsFiltered = child.children.filter(ff => ff.icon === 'folder')
-                            
                             resultChild = resultChild.concat (this.getChildrenElements(childElementsFiltered, childPath));
                         } 
-                        
                         result = result.concat (<DriveItemElement
                                                     path={childPath}
                                                     id={child.id.toString()}
@@ -58,24 +62,22 @@ class DriveExplorer extends Component{
                                                     title={child.title}
                                                     children={resultChild} 
                                                     onItemClick={this.props.onItemClick}
-                                                    onOptionClick={this.props.onOptionClick}
                                                     optionActivated={this.props.optionActivated}
                                                 />)
                                         
                         resultChild =[]
+                        
                     })
                     
             }else{
                 
-                path = path.concat(parents, pathItem)
-                // path.push(pathItem)
+                // path = path.concat(parents, pathItem)
                 return (<DriveItemElement
                             path={path}
                             id={item.id.toString()}
                             key={item.id}
                             title={item.title} 
                             onItemClick={this.props.onItemClick}
-                            onOptionClick={this.props.onOptionClick}
                             optionActivated={this.props.optionActivated}
                         />)
                     
@@ -88,7 +90,6 @@ class DriveExplorer extends Component{
                         title={item.title}
                         children={result} 
                         onItemClick={this.props.onItemClick}
-                        onOptionClick={this.props.onOptionClick}
                         optionActivated={this.props.optionActivated}
                     />)
         })

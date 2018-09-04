@@ -13,11 +13,11 @@ import SortHeaderList from './components/FilesFoldersList/ListView/containers/So
 import moment from 'moment'
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp );
 
-const API ="https://drive-js-server.herokuapp.com/";
-// const API ="http://localhost:3001/filesfolders";
-// const API ="http://127.0.0.1:8000/"
-// const FILE_DIRECTORY = "filedirectory/"
-const FILE_DIRECTORY = "filesfolders/"
+// const API ="https://drive-js-server.herokuapp.com/"; //** Online */
+// const API ="http://localhost:3001/filesfolders"; //*** local */
+const API ="http://127.0.0.1:8000/"
+const FILE_DIRECTORY = "filedirectory/" //** Online */
+// const FILE_DIRECTORY = "filesfolders/" //*** local */
 const CREATE_FOLDER = "createdirectory/"
 const FILE_UPLOAD_URL ="uploadfile/";
 //const API ="http://192.168.43.208:3001/filesfolders";
@@ -44,7 +44,7 @@ class DriveDashboard extends Component {
           },
         id:1
     }
-    this.showItemsOfRootFolder = this.showItemsOfRootFolder.bind(this)
+    // this.showItemsOfRootFolder = this.showItemsOfRootFolder.bind(this)
     this.driveExplorerItemClicked = this.driveExplorerItemClicked.bind(this)
   }
 
@@ -52,9 +52,14 @@ class DriveDashboard extends Component {
     
     axios.get(API+FILE_DIRECTORY)
     .then( (response) => {   
+      const itemIdInteger = parseInt(0,10) //id value is integer so it needs to be converted before
+      let values = this.getObjects(response.data, 'id', itemIdInteger);
+      let filesandfoldersfiltered =values[0].children;
+      console.log('from didmount')
       this.setState(
       {        
         filesandfolders: response.data,
+        filesandfoldersFiltered:filesandfoldersfiltered,
         loading:false,
         itemID:response.data[0].id.toString(),
         breadcrumbs:{
@@ -63,10 +68,12 @@ class DriveDashboard extends Component {
         }
       })
     })
-    .then(() => {
-      console.log(this.state.filesandfolders)
-      this.showItemsOfRootFolder()
-    })
+    // .then(() => {
+    //   // console.log(this.state.filesandfolders)
+    //   console.log('from root folder')
+    //   // this.showItemsOfRootFolder()
+      
+    // })
     .catch( (error) => {
       this.setState({
         loading:false,
@@ -76,14 +83,14 @@ class DriveDashboard extends Component {
     
   }
 
-  showItemsOfRootFolder(){
-    const itemIdInteger = parseInt(0,10) //id value is integer so it needs to be converted before
-    let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
-    let filesandfoldersfiltered =values[0].children;
-    this.setState({
-      filesandfoldersFiltered:filesandfoldersfiltered,
-    })
-  }
+  // showItemsOfRootFolder(){
+  //   const itemIdInteger = parseInt(0,10) //id value is integer so it needs to be converted before
+  //   let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
+  //   let filesandfoldersfiltered =values[0].children;
+  //   this.setState({
+  //     filesandfoldersFiltered:filesandfoldersfiltered,
+  //   })
+  // }
   //return an array of objects according to key, value, or key and value matching
   getObjects(obj, key, val) {
     var objects = [];
@@ -415,7 +422,8 @@ getObjectsDate(obj, key, val) {
       }
       //fill breadcrumbs data
       console.log(pathIDs)
-      console.log('pathIDs')
+      console.log('pathIDs.length')
+
       let ids = []
       let titles = []
       if (pathIDs!==undefined){
