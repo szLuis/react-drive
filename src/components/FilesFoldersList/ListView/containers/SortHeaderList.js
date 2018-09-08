@@ -31,8 +31,8 @@ class SortHeaderList extends Component {
     render(){
         return(<div className="col-md-12">
                     <nav className="nav bg-light">
-                        <a className="nav-link  w-40" onClick={this.handleSortNameHeaderClick} href="">Name <FontAwesomeIcon style={styles} icon={this.state.sortByNameUp?"arrow-up":"arrow-down"} /></a>
-                        <a className="nav-link  w-60" onClick={this.handleSortDateHeaderClick} href="">Date <FontAwesomeIcon style={styles} icon={this.state.sortByDateUp?"arrow-up":"arrow-down"} /></a>
+                        <a className="nav-link  w-50" onClick={this.handleSortNameHeaderClick} href="">Name <FontAwesomeIcon style={styles} icon={this.state.sortByNameUp?"arrow-up":"arrow-down"} /></a>
+                        <a className="nav-link  w-30" onClick={this.handleSortDateHeaderClick} href="">Date <FontAwesomeIcon style={styles} icon={this.state.sortByDateUp?"arrow-up":"arrow-down"} /></a>
                     </nav>
                 </div>
                 )

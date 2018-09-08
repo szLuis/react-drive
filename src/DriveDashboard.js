@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/theme.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faHdd, faFile, faFolder, faPlus, faEdit, faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import DriveSidebar from './components/DriveSidebar/DriveSidebar';
 import FilesFoldersList from './components/FilesFoldersList/FilesFoldersList' ;
@@ -11,11 +11,11 @@ import axios from 'axios';
 import Breadcrumbs from './components/DriveHeader/containers/Breadcrumbs';
 import SortHeaderList from './components/FilesFoldersList/ListView/containers/SortHeaderList'
 import moment from 'moment'
-library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp );
+library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp, faArrowRight );
 
-// const API ="https://drive-js-server.herokuapp.com/"; //** Online */
+const API ="https://drive-js-server2.herokuapp.com/"; //** Online */
 // const API ="http://localhost:3001/filesfolders"; //*** local */
-const API ="http://127.0.0.1:8000/"
+// const API ="http://127.0.0.1:8000/"
 const FILE_DIRECTORY = "filedirectory/" //** Online */
 // const FILE_DIRECTORY = "filesfolders/" //*** local */
 const CREATE_FOLDER = "createdirectory/"

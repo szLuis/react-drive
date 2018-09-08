@@ -1,8 +1,10 @@
 <rt-import name="FolderForm" from="../../../DriveHeader/containers/FolderForm" />
+<rt-import name="default" as="DriveExplorer" from="../../../DriveSidebar/DriveExplorer/containers/DriveExplorer" />
+<!--<rt-import name="ContextualMenu" from="../containers/ContextualMenu" />-->
 <rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
-<li class="list-group-item item-container" id={this.props.id} onDoubleClick={this.handleDoubleClick}>
+<li class="{this.props.itemClicked===this.props.id?'list-group-item item-container text-light bg-info':'list-group-item item-container text-dark bg-white'}" onClick={this.handleClick} onContextMenu={this.handleClick} id={this.props.id} onDoubleClick={this.handleDoubleClick}>
 	<div class="row" rt-if="this.state.editFormOpen===false">
-		
+		<!--<ContextualMenu rt-if="this.state.showContextualMenu"/>-->
 		<div class="list-body">
 			<!--<strong class="list-title">
 				{ this.props.title }
@@ -21,17 +23,17 @@
 				<div  class="d-flex align-items-center w-50">
 					<h6 >{ this.props.title }</h6>
 				</div>
-				<div  class="d-flex align-items-center w-20 text-muted">
+				<div  class="d-flex align-items-center w-10 text-muted">
 					<small>{ this.props.dateCreated }</small>
 				</div>
-				<div class="d-flex align-items-center w-20 "><a href="#">{"info"}</a></div>
+				<!-- <div class="d-flex align-items-center w-30 "><a href="#">{"info"}</a></div>-->
 				<div class=" w-20 list-actions">
 					<div class="d-none d-lg-block desktop-options">
 						<a 
-							class="btn btn-icon btn-info edit_link" 
+							class="btn btn-icon btn-success edit_link" 
 							data-toggle="tooltip" 
 							data-placement="top" 
-							title="{'trans.editElement'}"
+							title="Edit name"
 							onClick={this.handleEditClick} >
 							<FontAwesomeIcon style="position: inherit"  icon="edit" />
 						</a>
@@ -40,20 +42,28 @@
 							data-toggle="tooltip" 
 							id={this.props.id}
 							data-placement="top" 
-							title="{'trans.deleteElement'}" 
+							title="Send to trash" 
 							onClick={this.handleDeleteClick} >
 							<FontAwesomeIcon style="position: inherit"  icon="trash" />
 						</a>
 						<a 
-							class="btn btn-icon btn-primary " 
+							class="btn btn-icon btn-secondary " 
 							data-toggle="tooltip" 
 							id={this.props.id}
 							data-placement="top" 
-							title="{'trans.deleteElement'}" 
+							title="Star item" 
 							onClick={this.handleStarClick} >
 							<FontAwesomeIcon style="position: inherit; color:{this.props.star ? 'yellow' : 'white' } "  icon="star"  />
 						</a>
-						
+						<a 
+							class="btn btn-icon btn-info" 
+							href="{this.props.showLink}" 
+							data-toggle="tooltip" 
+							data-placement="top" 
+							title="Movo to..."
+							onClick={this.handleMoveToClick} >
+							<FontAwesomeIcon style="position: inherit;"  icon="arrow-right"  />
+						</a>
 						<!--
 						<a class="btn btn-icon btn-info show_link" href="{this.props.showLink}" data-toggle="tooltip" data-placement="top" title="{'trans.viewElement'}">
 							<i class="fa fa-eye" aria-hidden="true"></i>
@@ -95,6 +105,12 @@
         <hr>
         <div class="card-block">
             <FolderForm id={this.props.id} folderName={this.props.title} onFormSubmit={this.handleFormSubmit} onFormClose={this.handleFormClose} />
+        </div>
+    </div>
+	<div rt-if="this.state.moveToFormOpen">
+        <hr>
+        <div class="card-block">
+            <!--<DriveExplorer filesandfolders={this.props.fileSystem} />-->
         </div>
     </div>
 </li> 

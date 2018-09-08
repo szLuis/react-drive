@@ -6,8 +6,34 @@ class ListElement extends Component{
         super(props);
         this.state={
             editFormOpen: false,
+            moveToFormOpen: false,
+            // showContextualMenu:false,
         }
         this.handleEditClick = this.handleEditClick.bind(this);
+        // this.handleClick=this.handleClick.bind(this);
+    }
+
+    // handleClick = (e) => {
+    //     e.preventDefault()
+    //     if (e.type==='click'){
+    //         this.props.onClick(this.props.id)
+    //     }else{
+    //         this.props.onClick(this.props.id)
+    //         this.onContextualMenu()
+    //     }
+    // }
+
+    // onContextualMenu = () => {
+    //    this.setState({
+    //        showContextualMenu:true,
+    //    })
+    // }
+
+    handleMoveToClick = () => {
+        this.setState({
+            moveToFormOpen:true,
+        })
+        console.log('BTN MOVE TO CLICKED' + this.props.title)
     }
 
     handleDoubleClick = () => {

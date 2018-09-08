@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 import ListElement from './ListView/containers/ListElement';
 
 class FilesFoldersList extends Component{
+    constructor(props){
+        super(props)
+
+        this.state={
+            itemClicked:'',
+        }
+    }
+
+    handleClick = (id) => {
+        console.log("item clicked id: " + id)
+        this.setState({
+            itemClicked:id,
+        })
+    }
     
     render(){
         const filesandfoldersfiltered = this.props.filesandfolders
@@ -16,6 +30,9 @@ class FilesFoldersList extends Component{
                 dateCreated={filefolder.dateCreated}
                 details={filefolder.details}
                 star={filefolder.star}
+                itemClicked={this.state.itemClicked}
+                fileSystem={filesandfoldersfiltered}
+                onClick={this.handleClick}
                 onDoubleClick={this.props.onDoubleClickListElement}
                 onFormSubmit={this.props.onFormSubmit}
                 onListElementDelete={this.props.onListElementDelete}
