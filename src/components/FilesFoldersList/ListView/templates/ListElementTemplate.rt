@@ -55,6 +55,7 @@
 							onClick={this.handleStarClick} >
 							<FontAwesomeIcon style="position: inherit; color:{this.props.star ? 'yellow' : 'white' } "  icon="star"  />
 						</a>
+						<!--
 						<a 
 							class="btn btn-icon btn-info" 
 							href="{this.props.showLink}" 
@@ -64,6 +65,7 @@
 							onClick={this.handleMoveToClick} >
 							<FontAwesomeIcon style="position: inherit;"  icon="arrow-right"  />
 						</a>
+						-->
 						<!--
 						<a class="btn btn-icon btn-info show_link" href="{this.props.showLink}" data-toggle="tooltip" data-placement="top" title="{'trans.viewElement'}">
 							<i class="fa fa-eye" aria-hidden="true"></i>

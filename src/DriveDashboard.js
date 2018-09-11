@@ -16,6 +16,8 @@ library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, fa
 const API ="https://drive-js-server2.herokuapp.com/"; //** Online */
 // const API ="http://localhost:3001/filesfolders"; //*** local */
 // const API ="http://127.0.0.1:8000/"
+const STAR = "star/"
+const TRASH = "trash/"
 const FILE_DIRECTORY = "filedirectory/" //** Online */
 // const FILE_DIRECTORY = "filesfolders/" //*** local */
 const CREATE_FOLDER = "createdirectory/"
@@ -308,7 +310,7 @@ getObjectsDate(obj, key, val) {
   }
 
   deleteListElement = (itemId) => {
-    axios.patch(API + '/' + itemId, {
+    axios.patch(API + TRASH + itemId, {
       deleted:true
     })
     .then( (response) => {
@@ -336,7 +338,7 @@ getObjectsDate(obj, key, val) {
   }
 
   starListElement = (itemId) => {
-    axios.patch(API + '/' + itemId,{
+    axios.patch(API + STAR + itemId,{
       star: true,
     })
     .then( (response) => {
