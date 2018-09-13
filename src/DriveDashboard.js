@@ -14,15 +14,13 @@ import moment from 'moment'
 library.add( faHdd,faFile, faFolder, faPlus, faEdit,faTrash, faStar, faClock, faCaretDown, faCaretRight, faArrowDown, faArrowUp, faArrowRight );
 
 const API ="https://drive-js-server2.herokuapp.com/"; //** Online */
-// const API ="http://localhost:3001/filesfolders"; //*** local */
-// const API ="http://127.0.0.1:8000/"
+// const API ="http://127.0.0.1:8000/"  //*** local */
 const STAR = "star/"
 const TRASH = "trash/"
 const FILE_DIRECTORY = "filedirectory/" //** Online */
 // const FILE_DIRECTORY = "filesfolders/" //*** local */
 const CREATE_FOLDER = "createdirectory/"
 const FILE_UPLOAD_URL ="uploadfile/";
-//const API ="http://192.168.43.208:3001/filesfolders";
 
 class DriveDashboard extends Component {
   constructor(props){
@@ -57,6 +55,7 @@ class DriveDashboard extends Component {
       const itemIdInteger = parseInt(0,10) //id value is integer so it needs to be converted before
       let values = this.getObjects(response.data, 'id', itemIdInteger);
       let filesandfoldersfiltered =values[0].children;
+      filesandfoldersfiltered = filesandfoldersfiltered.filter(ff => ff.deleted===false)
       // console.log('from didmount')
       this.setState(
       {        
@@ -310,21 +309,32 @@ getObjectsDate(obj, key, val) {
   }
 
   deleteListElement = (itemId) => {
-    axios.patch(API + TRASH + itemId, {
+    axios.put(API + TRASH + itemId, {
       deleted:true
     })
     .then( (response) => {
-      console.log(response);
+      console.log(response.data);
+      //change deleted value to selected item
+      const filesandfoldersFiltered = this.state.filesandfoldersFiltered.map((filefolder) =>{
+        if (filefolder.id === itemId){
+          return Object.assign({}, filefolder, {
+            deleted: !filefolder.deleted,            
+          });
+        } else {
+          return filefolder;
+        }
+      })
+
+      let elementsFiltered =[]
+      //filter items that has been deleted
+      if (this.state.optionClicked==='trash'){
+        elementsFiltered = filesandfoldersFiltered.filter(ff => ff.deleted===true)
+      }else{
+        elementsFiltered = filesandfoldersFiltered.filter(ff => ff.deleted===false)
+      }
       this.setState({
-        filesandfolders: this.state.filesandfolders.map((filefolder) =>{
-          if (filefolder.id === itemId){
-            return Object.assign({}, filefolder, {
-              deleted: true,            
-            });
-          } else {
-            return filefolder;
-          }
-        })
+        filesandfolders:response.data,
+        filesandfoldersFiltered : elementsFiltered
       })
     })
     .catch((error) => {
@@ -338,23 +348,33 @@ getObjectsDate(obj, key, val) {
   }
 
   starListElement = (itemId) => {
-    axios.patch(API + STAR + itemId,{
+    axios.put(API + STAR + itemId,{
       star: true,
     })
     .then( (response) => {
-      console.log(response);
+      //change star value to selected item
+      const filesandfoldersFiltered= this.state.filesandfoldersFiltered.map((filefolder) =>{
+        if (filefolder.id === itemId){
+          console.log(itemId);
+          return Object.assign({}, filefolder, {
+            star: !filefolder.star,        
+            deleted: false,    
+          });
+        } else {
+          return filefolder;
+        }
+      })
+      let elementsFiltered =[]
+      //filter items that has been starred and are not deleted
+      if (this.state.optionClicked==='starred'){
+        elementsFiltered = filesandfoldersFiltered.filter(ff => ff.deleted===false && ff.star===true)
+      }else{
+        elementsFiltered = filesandfoldersFiltered.filter(ff => ff.deleted===false)
+      }
+      
       this.setState({
-        filesandfolders: this.state.filesandfolders.map((filefolder) =>{
-          if (filefolder.id === itemId){
-            console.log(itemId);
-            return Object.assign({}, filefolder, {
-              star: !filefolder.star,        
-              deleted: false,    
-            });
-          } else {
-            return filefolder;
-          }
-        })
+        filesandfolders:response.data,
+        filesandfoldersFiltered : elementsFiltered
       })
     })
     .catch((error) => {
@@ -382,7 +402,7 @@ getObjectsDate(obj, key, val) {
     dateDaysAgo=moment(dateDaysAgo).format("YYYY-MM-DD")
 
     let filesAndFoldersRecents = this.getObjectsDate(this.state.filesandfolders, 'dateCreated', dateDaysAgo);
-    const elementsFiltered= filesAndFoldersRecents.filter(ff => ff.deleted===false);
+    const elementsFiltered= filesAndFoldersRecents.filter(ff => ff.deleted===false && ff.icon==="file");
     this.setState({   
       optionClicked: 'recents',
       optionActivated:id,
@@ -408,7 +428,6 @@ getObjectsDate(obj, key, val) {
   driveExplorerItemClicked = (itemID, newElement, pathIDs) => {
       const itemIdInteger = parseInt(itemID,10) //id value is integer so it needs to be converted before
       let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
-      let showMsg = true
       let filesandfoldersfiltered =[];
       
       if (newElement !== undefined  && values[0].hasChildren){
@@ -419,9 +438,10 @@ getObjectsDate(obj, key, val) {
           values[0].children = newElement
           filesandfoldersfiltered = values[0].children
       }else{
-          showMsg=false
           filesandfoldersfiltered = values[0].children
       }
+
+      filesandfoldersfiltered = filesandfoldersfiltered.filter(ff => ff.deleted===false)
       //fill breadcrumbs data
       // console.log(pathIDs)
       // console.log('pathIDs.length')
@@ -448,7 +468,6 @@ getObjectsDate(obj, key, val) {
           id: ids,
         },
         optionActivated:itemID.toString(),
-        showMsgFolderCreated:showMsg,
         itemID:itemID.toString(),
       })
         

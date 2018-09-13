@@ -30,6 +30,7 @@ class FilesFoldersList extends Component{
                 dateCreated={filefolder.dateCreated}
                 details={filefolder.details}
                 star={filefolder.star}
+                deleted={filefolder.deleted}
                 itemClicked={this.state.itemClicked}
                 fileSystem={filesandfoldersfiltered}
                 onClick={this.handleClick}

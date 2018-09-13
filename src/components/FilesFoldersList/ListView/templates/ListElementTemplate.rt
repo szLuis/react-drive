@@ -29,7 +29,7 @@
 				<!-- <div class="d-flex align-items-center w-30 "><a href="#">{"info"}</a></div>-->
 				<div class=" w-20 list-actions">
 					<div class="d-none d-lg-block desktop-options">
-						<a 
+						<a rt-if="this.props.deleted===false"
 							class="btn btn-icon btn-success edit_link" 
 							data-toggle="tooltip" 
 							data-placement="top" 
@@ -42,11 +42,11 @@
 							data-toggle="tooltip" 
 							id={this.props.id}
 							data-placement="top" 
-							title="Send to trash" 
+							title="{this.props.deleted?'Restore':'Send to trash'}" 
 							onClick={this.handleDeleteClick} >
 							<FontAwesomeIcon style="position: inherit"  icon="trash" />
 						</a>
-						<a 
+						<a rt-if="this.props.deleted===false"
 							class="btn btn-icon btn-secondary " 
 							data-toggle="tooltip" 
 							id={this.props.id}
