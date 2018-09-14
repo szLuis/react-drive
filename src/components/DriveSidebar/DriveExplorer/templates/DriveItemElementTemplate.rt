@@ -1,5 +1,5 @@
 <rt-import name="FontAwesomeIcon" from="@fortawesome/react-fontawesome"/>
-<li class="list-group-item borderless " >
+<li rt-if="this.props.deleted===false" class="list-group-item borderless " >
 
 <FontAwesomeIcon key="caret-{this.props.id}" id="caret-{this.props.id}"  class="{this.props.optionActivated===this.props.id ? 'drive-explorer-item-active' : ''}" onClick={this.handleCaretClick} style="position: inherit; margin-left:-10px; " icon="{this.state.isOpen === true ? 'caret-down' : 'caret-right' }" />
 <FontAwesomeIcon style="position: inherit; margin-left:10px" icon="folder" class="{this.props.optionActivated===this.props.id ? 'drive-explorer-item-active' : ''}" /> 

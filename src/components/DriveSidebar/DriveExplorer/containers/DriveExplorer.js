@@ -59,6 +59,7 @@ class DriveExplorer extends Component{
                                                     path={childPath}
                                                     id={child.id.toString()}
                                                     key={child.id}
+                                                    deleted={child.deleted}
                                                     title={child.title}
                                                     children={resultChild} 
                                                     onItemClick={this.props.onItemClick}
@@ -76,6 +77,7 @@ class DriveExplorer extends Component{
                             path={path}
                             id={item.id.toString()}
                             key={item.id}
+                            deleted={item.deleted}
                             title={item.title} 
                             onItemClick={this.props.onItemClick}
                             optionActivated={this.props.optionActivated}
@@ -88,6 +90,7 @@ class DriveExplorer extends Component{
                         id={item.id.toString()}
                         key={item.id}
                         title={item.title}
+                        deleted={item.deleted}
                         children={result} 
                         onItemClick={this.props.onItemClick}
                         optionActivated={this.props.optionActivated}

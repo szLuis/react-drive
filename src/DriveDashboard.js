@@ -17,8 +17,8 @@ const API ="https://drive-js-server2.herokuapp.com/"; //** Online */
 // const API ="http://127.0.0.1:8000/"  //*** local */
 const STAR = "star/"
 const TRASH = "trash/"
-const FILE_DIRECTORY = "filedirectory/" //** Online */
-// const FILE_DIRECTORY = "filesfolders/" //*** local */
+const RENAME = "rename/"
+const FILE_DIRECTORY = "filedirectory/"
 const CREATE_FOLDER = "createdirectory/"
 const FILE_UPLOAD_URL ="uploadfile/";
 
@@ -44,12 +44,11 @@ class DriveDashboard extends Component {
           },
         id:1
     }
-    // this.showItemsOfRootFolder = this.showItemsOfRootFolder.bind(this)
     this.driveExplorerItemClicked = this.driveExplorerItemClicked.bind(this)
   }
 
-  componentDidMount(){
-    
+  //mount fileDirectory
+  componentDidMount(){    
     axios.get(API+FILE_DIRECTORY)
     .then( (response) => {   
       const itemIdInteger = parseInt(0,10) //id value is integer so it needs to be converted before
@@ -69,12 +68,6 @@ class DriveDashboard extends Component {
         }
       })
     })
-    // .then(() => {
-    //   // console.log(this.state.filesandfolders)
-    //   console.log('from root folder')
-    //   // this.showItemsOfRootFolder()
-      
-    // })
     .catch( (error) => {
       this.setState({
         loading:false,
@@ -84,14 +77,6 @@ class DriveDashboard extends Component {
     
   }
 
-  // showItemsOfRootFolder(){
-  //   const itemIdInteger = parseInt(0,10) //id value is integer so it needs to be converted before
-  //   let values = this.getObjects(this.state.filesandfolders, 'id', itemIdInteger);
-  //   let filesandfoldersfiltered =values[0].children;
-  //   this.setState({
-  //     filesandfoldersFiltered:filesandfoldersfiltered,
-  //   })
-  // }
   //return an array of objects according to key, value, or key and value matching
   getObjects(obj, key, val) {
     var objects = [];
@@ -221,32 +206,7 @@ getObjectsDate(obj, key, val) {
         })
         .catch((error) => {
           console.log(error)
-        })
-
-    // axios.post(API + CREATE_FOLDER, {
-    //     idTargetDirectory: this.state.itemID,
-    //     targetDirectory: this.state.breadcrumbs, // current or target directory
-    //     icon: ff.icon,
-    //     directoryName: ff.title,
-    //     star: false,
-    //     deleted: false,
-    // })
-    // .then((response) => {
-    //   ff.id = response.data.id
-    //   const newElement = [ff]
-    //   this.handleDriveExplorerItemClick(this.state.itemID, newElement)
-    // })
-    // .catch(function (error){
-    //   console.log(error);
-    // })
-
-    
-    // this.setState(
-    //   {
-    //     id:this.state.id+1,
-    //   }
-    // )
-
+        })    
   };
 
   fileUpload(file){
@@ -275,27 +235,39 @@ getObjectsDate(obj, key, val) {
     return axios.post(url, formData, config)
   }
 
-  // UPDATE folder block
-  handleUpdateFormSubmit = (FolderFormAtts) => {
-    this.updateFolderForm(FolderFormAtts);
+  // UPDATE item name block
+  handleUpdateFormSubmit = (formAtts) => {
+    this.updateItemName(formAtts)
+    // console.log(formAtts.id)
+    // console.log(formAtts.name)
+    // const targetDirectory = JSON.stringify(this.state.breadcrumbs.title)
+    // console.log(targetDirectory)
   }
 
-  updateFolderForm = (FolderFormAtts) => {
-    axios.patch(API + '/' + FolderFormAtts.id, {
-      title:FolderFormAtts.folderName
+  updateItemName = (formAtts) => {
+    const targetDirectory = JSON.stringify(this.state.breadcrumbs.title)
+    axios.post(API + RENAME, {
+      id:formAtts.id,
+      title:formAtts.name,
+      targetDirectory:targetDirectory,
     })
     .then((response) => {
+      const filesandfoldersFiltered= this.state.filesandfoldersFiltered.map((filefolder) =>{
+        if (filefolder.id === formAtts.id){
+          return Object.assign({}, filefolder, {
+            title: formAtts.name,            
+          });
+        } else {
+          return filefolder;
+        }
+      })
+      let elementsFiltered =[]
+      //filter items that has been deleted
+      elementsFiltered = filesandfoldersFiltered.filter(ff => ff.deleted===false)
       this.setState({
-        filesandfolders: this.state.filesandfolders.map((filefolder) =>{
-          if (filefolder.id === FolderFormAtts.id){
-            return Object.assign({}, filefolder, {
-              title: FolderFormAtts.folderName,            
-            });
-          } else {
-            return filefolder;
-          }
-        })
-      });
+        filesandfolders: response.data,
+        filesandfoldersFiltered : elementsFiltered,
+      })
     })
     .catch((error) => {
       console.log(error);
@@ -445,7 +417,7 @@ getObjectsDate(obj, key, val) {
       //fill breadcrumbs data
       // console.log(pathIDs)
       // console.log('pathIDs.length')
-
+      console.log(filesandfoldersfiltered)
       let ids = []
       let titles = []
       if (pathIDs!==undefined){
@@ -473,6 +445,7 @@ getObjectsDate(obj, key, val) {
         
   }
 
+  //Double click event handler for list element of file folder list
   handleDoubleClickListElement = (listElementId) =>{
     this.doubleClickListElement(listElementId)
   }
@@ -484,6 +457,7 @@ getObjectsDate(obj, key, val) {
     let filesandfoldersfiltered =[];
       
     filesandfoldersfiltered = values[0].children
+    filesandfoldersfiltered = filesandfoldersfiltered.filter(ff => ff.deleted===false)
 
     this.setState({
       //optionClicked: 'folder',
@@ -498,7 +472,7 @@ getObjectsDate(obj, key, val) {
     })
 
 }
-
+//Breadcrumb component
 handleBreadcrumbClick = (breadcrumbId) =>{
   this.clickBreadcrumbItem(breadcrumbId)
 }
@@ -518,9 +492,13 @@ clickBreadcrumbItem = (itemID) => {
   this.state.breadcrumbs.id.splice(indexToStartRemoving)
   this.state.breadcrumbs.title.splice(indexToStartRemoving)
 
+  let elementsFiltered =[]
+  //filter items that has been deleted
+  elementsFiltered = filesandfoldersfiltered.filter(ff => ff.deleted===false)
+
   this.setState({
-    // optionClicked: 'folder',
-    filesandfoldersFiltered:filesandfoldersfiltered,
+    optionClicked: 'folder',
+    filesandfoldersFiltered:elementsFiltered,
     breadcrumbs:{
       title: this.state.breadcrumbs.title,
       id: this.state.breadcrumbs.id,
@@ -531,6 +509,7 @@ clickBreadcrumbItem = (itemID) => {
 
 }
 //SORT header component block
+
 //sort by name
 handleSortNameHeaderClick = (direction) => {
   this.clickSortNameHeader(direction)
@@ -574,6 +553,7 @@ compareDate = (a,b) => {
   return dateA - dateB
 }
 
+//SearchBox on change event handler
 handleOnSearchBoxChange = (e) => {
   // get children for folder clicked 
   let values = this.getObjects(this.state.filesandfolders, 'title',e.target.value);

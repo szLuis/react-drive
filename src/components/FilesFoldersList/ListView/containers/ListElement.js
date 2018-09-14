@@ -37,7 +37,7 @@ class ListElement extends Component{
     }
 
     handleDoubleClick = () => {
-        if (this.props.icon==='folder')
+        if (this.props.icon==='folder' && this.props.optionClicked==='folder') 
         this.props.onDoubleClick(this.props.id)
     }
 

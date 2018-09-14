@@ -33,6 +33,7 @@ class FilesFoldersList extends Component{
                 deleted={filefolder.deleted}
                 itemClicked={this.state.itemClicked}
                 fileSystem={filesandfoldersfiltered}
+                optionClicked={this.props.optionClicked}
                 onClick={this.handleClick}
                 onDoubleClick={this.props.onDoubleClickListElement}
                 onFormSubmit={this.props.onFormSubmit}

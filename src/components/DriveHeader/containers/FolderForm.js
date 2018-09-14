@@ -19,11 +19,24 @@ export class FolderForm extends Component{
         });
     }
 
-    handleSubmit = () => {
-        this.props.onFolderFormSubmit({
-            id:this.props.id,
-            name: this.state.name,
-        })
+    handleSubmit = (e) => {
+        e.preventDefault()
+        //this block belongs to list item component
+        if (this.props.onFormSubmit){
+            this.props.onFormSubmit({
+                id:this.props.id,
+                name: this.state.name,
+            })
+            
+        }
+        //this block belongs to header component
+        if (this.props.onFolderFormSubmit){
+            this.props.onFolderFormSubmit({
+                id:this.props.id,
+                name: this.state.name,
+            })
+        }
+     
     }
 
 
