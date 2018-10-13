@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ListElement from './ListView/containers/ListElement';
-const serverUrl = "http://127.0.0.1:8000/uploads/drive/"
+const serverUrl = "https://drive-js-server2.herokuapp.com/uploads/drive/"
 class FilesFoldersList extends Component{
     constructor(props){
         super(props)
