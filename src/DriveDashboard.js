@@ -186,11 +186,26 @@ getObjectsDate(obj, key, val) {
   addNewFileElement = (Form) => {
     console.log(Form)
     const ff = Form;
+    let link ="";
+
+    const targetDirectory = this.state.breadcrumbs.title.slice();
+    // console.log(targetDirectory)
+    targetDirectory.shift()
+    const directories = targetDirectory
+
+    // console.log(directories)
+    // console.log(this.state.breadcrumbs.title)
     
-    ff.icon = 'file'
+    directories.forEach((directory) => {
+      link += directory + "/"
+    })
+    // console.log(link+Form.name)
+
+    
+    ff.icon = 'file';
     ff.title = Form.name;
     ff.dateCreated= "2018-07-18";
-    ff.detailsLink='#'
+    ff.detailsLink=link+Form.name;
     ff.star=false
     ff.deleted=false
     ff.hasChildren=false

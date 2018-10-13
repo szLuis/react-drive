@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ListElement from './ListView/containers/ListElement';
-
+const serverUrl = "http://127.0.0.1:8000/uploads/drive/"
 class FilesFoldersList extends Component{
     constructor(props){
         super(props)
@@ -20,13 +20,14 @@ class FilesFoldersList extends Component{
     render(){
         const filesandfoldersfiltered = this.props.filesandfolders
         const totalListElements = filesandfoldersfiltered.length
-        
+        console.log(filesandfoldersfiltered)
         const listElementComponents = filesandfoldersfiltered.map((filefolder) => (
             <ListElement 
                 key={filefolder.id}
                 id={filefolder.id}
                 icon={filefolder.icon}
                 title={filefolder.title}
+                linkDetails={serverUrl+filefolder.detailsLink}
                 dateCreated={filefolder.dateCreated}
                 details={filefolder.details}
                 star={filefolder.star}
